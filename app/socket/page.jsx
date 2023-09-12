@@ -6,16 +6,19 @@ const SocketPage = () => {
 
 let socket;
 
-const [campList, setCampList] = useState([]);
+
+const [data, setData] = useState([]);
+
+const [campList1, setCampList1] = useState([]);
+const [campList2, setCampList2] = useState([]);
 
 
 
 
 useEffect(()=> {
-    
     // socketInit();
     setMockData();
-    console.log("camp list", campList);
+    console.log("camp list", campList1);
 
 },[])
 
@@ -29,13 +32,20 @@ const socketInit = async () => {
     socket.on("battle data",(data) => {
         console.log("data :", data);
         if (data.message == "success") {
-            setCampList(data.data.camp_list);        
+
+            setData(data.data);
+            setCampList1(data.data.camp_list);     
+
         }    
     });
 }
 
 const setMockData = async() => {
-    setCampList([
+     await fetch("data.json").then((response)=>{
+        console.log("response :", response)
+     });   
+    
+    setCampList1([
         {
             "campid": 1,
             "team_name": "BloodThirstyKing",
@@ -339,417 +349,323 @@ const setMockData = async() => {
             ],
             "kill_tortoise": 2
         },
-        {
-            "campid": 2,
-            "team_name": "TheOhioBrothers",
-            "team_simple_name": "ToB",
-            "team_id": 10460,
-            "score": 15,
-            "kill_lord": 1,
-            "kill_tower": 7,
-            "total_money": 37210,
-            "player_list": [
-                {
-                    "roleid": 1390091480,
-                    "zoneid": 50001,
-                    "name": "Hoon",
-                    "team_name": "TheOhioBrothers",
-                    "team_simple_name": "ToB",
-                    "team_id": 10460,
-                    "judger": false,
-                    "campid": 2,
-                    "pos": 6,
-                    "banning": false,
-                    "picking": false,
-                    "ban_heroid": 11,
-                    "heroid": 119,
-                    "skillid": 20080,
-                    "gold": 6829,
-                    "exp": 10520,
-                    "level": 11,
-                    "total_hurt": 10766,
-                    "total_damage": 34272,
-                    "total_heal": 1756,
-                    "total_damage_tower": 3855,
-                    "dead": false,
-                    "revive_left_time": 0,
-                    "major_left_time": 19,
-                    "skill_left_time": 0,
-                    "rune_id": 20005,
-                    "kill_num": 3,
-                    "dead_num": 1,
-                    "assist_num": 6,
-                    "rune_map": {
-                        "1": 811,
-                        "2": 121,
-                        "3": 131
-                    },
-                    "equip_list": [
-                        3107,
-                        2304,
-                        3110,
-                        1105,
-                        2101
-                    ],
-                    "map_pos": {
-                        "x": -35.28125,
-                        "y": -0.4710083
-                    },
-                    "xpm": 965,
-                    "hit_rate": [
-                        {
-                            "skillid": "11923",
-                            "cast_times": 40,
-                            "hit_times": 20
-                        }
-                    ],
-                    "gold_map": null
-                },
-                {
-                    "roleid": 1390091499,
-                    "zoneid": 50001,
-                    "name": "bestplayer1",
-                    "team_name": "TheOhioBrothers",
-                    "team_simple_name": "ToB",
-                    "team_id": 10460,
-                    "judger": false,
-                    "campid": 2,
-                    "pos": 7,
-                    "banning": false,
-                    "picking": false,
-                    "ban_heroid": 1,
-                    "heroid": 47,
-                    "skillid": 20020,
-                    "gold": 9421,
-                    "exp": 16833,
-                    "level": 15,
-                    "total_hurt": 36427,
-                    "total_damage": 50926,
-                    "total_heal": 30088,
-                    "total_damage_tower": 7056,
-                    "dead": false,
-                    "revive_left_time": 0,
-                    "major_left_time": 0,
-                    "skill_left_time": 1,
-                    "rune_id": 20005,
-                    "kill_num": 6,
-                    "dead_num": 1,
-                    "assist_num": 7,
-                    "rune_map": {
-                        "1": 511,
-                        "2": 122,
-                        "3": 531
-                    },
-                    "equip_list": [
-                        3423,
-                        1002,
-                        2013,
-                        2209,
-                        3004,
-                        2203
-                    ],
-                    "map_pos": {
-                        "x": -39.46875,
-                        "y": 1.5756836
-                    },
-                    "xpm": 0,
-                    "hit_rate": null,
-                    "gold_map": null
-                },
-                {
-                    "roleid": 1389451493,
-                    "zoneid": 50001,
-                    "name": "ZIA",
-                    "team_name": "TheOhioBrothers",
-                    "team_simple_name": "ToB",
-                    "team_id": 10460,
-                    "judger": false,
-                    "campid": 2,
-                    "pos": 8,
-                    "banning": false,
-                    "picking": false,
-                    "ban_heroid": 4,
-                    "heroid": 100,
-                    "skillid": 20100,
-                    "gold": 8833,
-                    "exp": 12766,
-                    "level": 13,
-                    "total_hurt": 23465,
-                    "total_damage": 29274,
-                    "total_heal": 11512,
-                    "total_damage_tower": 21983,
-                    "dead": false,
-                    "revive_left_time": 0,
-                    "major_left_time": 0,
-                    "skill_left_time": 0,
-                    "rune_id": 20005,
-                    "kill_num": 3,
-                    "dead_num": 1,
-                    "assist_num": 4,
-                    "rune_map": {
-                        "1": 511,
-                        "2": 321,
-                        "3": 132
-                    },
-                    "equip_list": [
-                        2206,
-                        3007,
-                        2302,
-                        3001,
-                        2011,
-                        1006
-                    ],
-                    "map_pos": {
-                        "x": -39.273438,
-                        "y": 3.2841797
-                    },
-                    "xpm": 1171,
-                    "hit_rate": null,
-                    "gold_map": null
-                },
-                {
-                    "roleid": 1320398195,
-                    "zoneid": 50001,
-                    "name": "Mielow",
-                    "team_name": "TheOhioBrothers",
-                    "team_simple_name": "ToB",
-                    "team_id": 10460,
-                    "judger": false,
-                    "campid": 2,
-                    "pos": 9,
-                    "banning": false,
-                    "picking": false,
-                    "ban_heroid": 5,
-                    "heroid": 37,
-                    "skillid": 20100,
-                    "gold": 7019,
-                    "exp": 11541,
-                    "level": 12,
-                    "total_hurt": 51295,
-                    "total_damage": 24827,
-                    "total_heal": 25978,
-                    "total_damage_tower": 3619,
-                    "dead": false,
-                    "revive_left_time": 0,
-                    "major_left_time": 6,
-                    "skill_left_time": 118,
-                    "rune_id": 20007,
-                    "kill_num": 2,
-                    "dead_num": 2,
-                    "assist_num": 2,
-                    "rune_map": {
-                        "1": 811,
-                        "2": 721,
-                        "3": 731
-                    },
-                    "equip_list": [
-                        2302,
-                        2004,
-                        3206,
-                        3010,
-                        2203,
-                        1201
-                    ],
-                    "map_pos": {
-                        "x": -35.476562,
-                        "y": -4.5371094
-                    },
-                    "xpm": 1058,
-                    "hit_rate": null,
-                    "gold_map": null
-                },
-                {
-                    "roleid": 1390091449,
-                    "zoneid": 50001,
-                    "name": "SUPERSHARK.",
-                    "team_name": "TheOhioBrothers",
-                    "team_simple_name": "ToB",
-                    "team_id": 10460,
-                    "judger": false,
-                    "campid": 2,
-                    "pos": 10,
-                    "banning": false,
-                    "picking": false,
-                    "ban_heroid": 15,
-                    "heroid": 111,
-                    "skillid": 20100,
-                    "gold": 5672,
-                    "exp": 9556,
-                    "level": 11,
-                    "total_hurt": 45270,
-                    "total_damage": 18552,
-                    "total_heal": 19590,
-                    "total_damage_tower": 839,
-                    "dead": false,
-                    "revive_left_time": 0,
-                    "major_left_time": 8,
-                    "skill_left_time": 83,
-                    "rune_id": 20003,
-                    "kill_num": 1,
-                    "dead_num": 0,
-                    "assist_num": 9,
-                    "rune_map": {
-                        "1": 711,
-                        "2": 321,
-                        "3": 731
-                    },
-                    "equip_list": [
-                        3521,
-                        3205,
-                        2201,
-                        2205,
-                        1202
-                    ],
-                    "map_pos": {
-                        "x": -39.007812,
-                        "y": 2.078125
-                    },
-                    "xpm": 876,
-                    "hit_rate": null,
-                    "gold_map": null
-                }
-            ],
-            "ban_hero_list": [
-                11,
-                1,
-                4,
-                5,
-                15
-            ],
-            "kill_lord_advantage": [
-                {
-                    "begin_time": 582,
-                    "end_time": 655,
-                    "gold": 6566,
-                    "exp": 8717,
-                    "tower_hp": 34464
-                }
-            ],
-            "enemy_area_get": [
-                {
-                    "end_time": 120,
-                    "purple_buffer_num": 0,
-                    "orange_buffer_num": 0,
-                    "monster_gold": 95
-                },
-                {
-                    "end_time": 300,
-                    "purple_buffer_num": 0,
-                    "orange_buffer_num": 0,
-                    "monster_gold": 0
-                },
-                {
-                    "end_time": 480,
-                    "purple_buffer_num": 1,
-                    "orange_buffer_num": 1,
-                    "monster_gold": 522
-                },
-                {
-                    "end_time": 655,
-                    "purple_buffer_num": 1,
-                    "orange_buffer_num": 2,
-                    "monster_gold": 895
-                }
-            ],
-            "kill_tortoise": 1
-        },
-        {
-            "campid": 5,
-            "team_name": "",
-            "team_simple_name": "",
-            "team_id": 0,
-            "score": 0,
-            "kill_lord": 0,
-            "kill_tower": 0,
-            "total_money": 0,
-            "player_list": [
-                {
-                    "roleid": 1389451591,
-                    "zoneid": 50001,
-                    "name": "NACT0013",
-                    "team_name": "",
-                    "team_simple_name": "",
-                    "team_id": 0,
-                    "judger": true,
-                    "campid": 5,
-                    "pos": 11,
-                    "banning": false,
-                    "picking": false,
-                    "ban_heroid": 0,
-                    "heroid": 0,
-                    "skillid": 0,
-                    "gold": 0,
-                    "exp": 0,
-                    "level": 1,
-                    "total_hurt": 0,
-                    "total_damage": 0,
-                    "total_heal": 0,
-                    "total_damage_tower": 0,
-                    "dead": false,
-                    "revive_left_time": 0,
-                    "major_left_time": 0,
-                    "skill_left_time": 0,
-                    "rune_id": 0,
-                    "kill_num": 0,
-                    "dead_num": 0,
-                    "assist_num": 0,
-                    "rune_map": null,
-                    "equip_list": null,
-                    "map_pos": {
-                        "x": 0,
-                        "y": 0
-                    },
-                    "xpm": 0,
-                    "hit_rate": null,
-                    "gold_map": null
-                },
-                {
-                    "roleid": 1389451604,
-                    "zoneid": 50001,
-                    "name": "NACT0014",
-                    "team_name": "",
-                    "team_simple_name": "",
-                    "team_id": 0,
-                    "judger": true,
-                    "campid": 5,
-                    "pos": 12,
-                    "banning": false,
-                    "picking": false,
-                    "ban_heroid": 0,
-                    "heroid": 0,
-                    "skillid": 0,
-                    "gold": 0,
-                    "exp": 0,
-                    "level": 1,
-                    "total_hurt": 0,
-                    "total_damage": 0,
-                    "total_heal": 0,
-                    "total_damage_tower": 0,
-                    "dead": false,
-                    "revive_left_time": 0,
-                    "major_left_time": 0,
-                    "skill_left_time": 0,
-                    "rune_id": 0,
-                    "kill_num": 0,
-                    "dead_num": 0,
-                    "assist_num": 0,
-                    "rune_map": null,
-                    "equip_list": null,
-                    "map_pos": {
-                        "x": 0,
-                        "y": 0
-                    },
-                    "xpm": 0,
-                    "hit_rate": null,
-                    "gold_map": null
-                }
-            ],
-            "ban_hero_list": null,
-            "kill_lord_advantage": null,
-            "enemy_area_get": null,
-            "kill_tortoise": 0
-        }
+        
     ]);
+
+    setCampList2([{
+        "campid": 2,
+        "team_name": "TheOhioBrothers",
+        "team_simple_name": "ToB",
+        "team_id": 10460,
+        "score": 15,
+        "kill_lord": 1,
+        "kill_tower": 7,
+        "total_money": 37210,
+        "player_list": [
+            {
+                "roleid": 1390091480,
+                "zoneid": 50001,
+                "name": "Hoon",
+                "team_name": "TheOhioBrothers",
+                "team_simple_name": "ToB",
+                "team_id": 10460,
+                "judger": false,
+                "campid": 2,
+                "pos": 6,
+                "banning": false,
+                "picking": false,
+                "ban_heroid": 11,
+                "heroid": 119,
+                "skillid": 20080,
+                "gold": 6829,
+                "exp": 10520,
+                "level": 11,
+                "total_hurt": 10766,
+                "total_damage": 34272,
+                "total_heal": 1756,
+                "total_damage_tower": 3855,
+                "dead": false,
+                "revive_left_time": 0,
+                "major_left_time": 19,
+                "skill_left_time": 0,
+                "rune_id": 20005,
+                "kill_num": 3,
+                "dead_num": 1,
+                "assist_num": 6,
+                "rune_map": {
+                    "1": 811,
+                    "2": 121,
+                    "3": 131
+                },
+                "equip_list": [
+                    3107,
+                    2304,
+                    3110,
+                    1105,
+                    2101
+                ],
+                "map_pos": {
+                    "x": -35.28125,
+                    "y": -0.4710083
+                },
+                "xpm": 965,
+                "hit_rate": [
+                    {
+                        "skillid": "11923",
+                        "cast_times": 40,
+                        "hit_times": 20
+                    }
+                ],
+                "gold_map": null
+            },
+            {
+                "roleid": 1390091499,
+                "zoneid": 50001,
+                "name": "bestplayer1",
+                "team_name": "TheOhioBrothers",
+                "team_simple_name": "ToB",
+                "team_id": 10460,
+                "judger": false,
+                "campid": 2,
+                "pos": 7,
+                "banning": false,
+                "picking": false,
+                "ban_heroid": 1,
+                "heroid": 47,
+                "skillid": 20020,
+                "gold": 9421,
+                "exp": 16833,
+                "level": 15,
+                "total_hurt": 36427,
+                "total_damage": 50926,
+                "total_heal": 30088,
+                "total_damage_tower": 7056,
+                "dead": false,
+                "revive_left_time": 0,
+                "major_left_time": 0,
+                "skill_left_time": 1,
+                "rune_id": 20005,
+                "kill_num": 6,
+                "dead_num": 1,
+                "assist_num": 7,
+                "rune_map": {
+                    "1": 511,
+                    "2": 122,
+                    "3": 531
+                },
+                "equip_list": [
+                    3423,
+                    1002,
+                    2013,
+                    2209,
+                    3004,
+                    2203
+                ],
+                "map_pos": {
+                    "x": -39.46875,
+                    "y": 1.5756836
+                },
+                "xpm": 0,
+                "hit_rate": null,
+                "gold_map": null
+            },
+            {
+                "roleid": 1389451493,
+                "zoneid": 50001,
+                "name": "ZIA",
+                "team_name": "TheOhioBrothers",
+                "team_simple_name": "ToB",
+                "team_id": 10460,
+                "judger": false,
+                "campid": 2,
+                "pos": 8,
+                "banning": false,
+                "picking": false,
+                "ban_heroid": 4,
+                "heroid": 100,
+                "skillid": 20100,
+                "gold": 8833,
+                "exp": 12766,
+                "level": 13,
+                "total_hurt": 23465,
+                "total_damage": 29274,
+                "total_heal": 11512,
+                "total_damage_tower": 21983,
+                "dead": false,
+                "revive_left_time": 0,
+                "major_left_time": 0,
+                "skill_left_time": 0,
+                "rune_id": 20005,
+                "kill_num": 3,
+                "dead_num": 1,
+                "assist_num": 4,
+                "rune_map": {
+                    "1": 511,
+                    "2": 321,
+                    "3": 132
+                },
+                "equip_list": [
+                    2206,
+                    3007,
+                    2302,
+                    3001,
+                    2011,
+                    1006
+                ],
+                "map_pos": {
+                    "x": -39.273438,
+                    "y": 3.2841797
+                },
+                "xpm": 1171,
+                "hit_rate": null,
+                "gold_map": null
+            },
+            {
+                "roleid": 1320398195,
+                "zoneid": 50001,
+                "name": "Mielow",
+                "team_name": "TheOhioBrothers",
+                "team_simple_name": "ToB",
+                "team_id": 10460,
+                "judger": false,
+                "campid": 2,
+                "pos": 9,
+                "banning": false,
+                "picking": false,
+                "ban_heroid": 5,
+                "heroid": 37,
+                "skillid": 20100,
+                "gold": 7019,
+                "exp": 11541,
+                "level": 12,
+                "total_hurt": 51295,
+                "total_damage": 24827,
+                "total_heal": 25978,
+                "total_damage_tower": 3619,
+                "dead": false,
+                "revive_left_time": 0,
+                "major_left_time": 6,
+                "skill_left_time": 118,
+                "rune_id": 20007,
+                "kill_num": 2,
+                "dead_num": 2,
+                "assist_num": 2,
+                "rune_map": {
+                    "1": 811,
+                    "2": 721,
+                    "3": 731
+                },
+                "equip_list": [
+                    2302,
+                    2004,
+                    3206,
+                    3010,
+                    2203,
+                    1201
+                ],
+                "map_pos": {
+                    "x": -35.476562,
+                    "y": -4.5371094
+                },
+                "xpm": 1058,
+                "hit_rate": null,
+                "gold_map": null
+            },
+            {
+                "roleid": 1390091449,
+                "zoneid": 50001,
+                "name": "SUPERSHARK.",
+                "team_name": "TheOhioBrothers",
+                "team_simple_name": "ToB",
+                "team_id": 10460,
+                "judger": false,
+                "campid": 2,
+                "pos": 10,
+                "banning": false,
+                "picking": false,
+                "ban_heroid": 15,
+                "heroid": 111,
+                "skillid": 20100,
+                "gold": 5672,
+                "exp": 9556,
+                "level": 11,
+                "total_hurt": 45270,
+                "total_damage": 18552,
+                "total_heal": 19590,
+                "total_damage_tower": 839,
+                "dead": false,
+                "revive_left_time": 0,
+                "major_left_time": 8,
+                "skill_left_time": 83,
+                "rune_id": 20003,
+                "kill_num": 1,
+                "dead_num": 0,
+                "assist_num": 9,
+                "rune_map": {
+                    "1": 711,
+                    "2": 321,
+                    "3": 731
+                },
+                "equip_list": [
+                    3521,
+                    3205,
+                    2201,
+                    2205,
+                    1202
+                ],
+                "map_pos": {
+                    "x": -39.007812,
+                    "y": 2.078125
+                },
+                "xpm": 876,
+                "hit_rate": null,
+                "gold_map": null
+            }
+        ],
+        "ban_hero_list": [
+            11,
+            1,
+            4,
+            5,
+            15
+        ],
+        "kill_lord_advantage": [
+            {
+                "begin_time": 582,
+                "end_time": 655,
+                "gold": 6566,
+                "exp": 8717,
+                "tower_hp": 34464
+            }
+        ],
+        "enemy_area_get": [
+            {
+                "end_time": 120,
+                "purple_buffer_num": 0,
+                "orange_buffer_num": 0,
+                "monster_gold": 95
+            },
+            {
+                "end_time": 300,
+                "purple_buffer_num": 0,
+                "orange_buffer_num": 0,
+                "monster_gold": 0
+            },
+            {
+                "end_time": 480,
+                "purple_buffer_num": 1,
+                "orange_buffer_num": 1,
+                "monster_gold": 522
+            },
+            {
+                "end_time": 655,
+                "purple_buffer_num": 1,
+                "orange_buffer_num": 2,
+                "monster_gold": 895
+            }
+        ],
+        "kill_tortoise": 1
+    },])
 }
 
 return (
@@ -759,7 +675,7 @@ return (
       {/* Player Stats */}
       <div className="flex justify-between mb-4">
         <div className="text-white">
-          <span className="block">Player Name</span>
+          <span className="block">Team Name</span>
           <span className="block text-gray-400">Level 5</span>
         </div>
         <div className="text-white">
@@ -784,12 +700,18 @@ return (
         </div>
       </div>
 
+      <div className=" flex flex-row">
       {/* Minimap */}
-      <div className="bg-gray-800 rounded-lg p-2">
+      {campList1[0]?.player_list.map((player)=>(
+          
+          <div className=" bg-gray-800 rounded-lg p-2">
         <div className="bg-gray-600 w-48 h-32 rounded-lg">
+            {player.name}
           {/* Minimap content here */}
         </div>
       </div>
+          ))}
+          </div>
 
       {/* Action Buttons */}
       <div className="flex justify-center mt-4">
