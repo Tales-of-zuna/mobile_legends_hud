@@ -1,0 +1,612 @@
+{
+  "1": {
+    "name": "Miya",
+    "role": ["Marksman"],
+    "lane": "Gold"
+  },
+  "2": {
+    "name": "Balmond",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "3": {
+    "name": "Saber",
+    "role": ["Assassin"],
+    "lane": "Jungler"
+  },
+  "4": {
+    "name": "Alice",
+    "role": ["Mage", "Tank"],
+    "lane": "Mid"
+  },
+  "5": {
+    "name": "Nana",
+    "role": ["Mage"],
+    "lane": "Mid"
+  },
+  "6": {
+    "name": "Tigreal",
+    "role": ["Tank"],
+    "lane": "Roamer"
+  },
+  "7": {
+    "name": "Alucard",
+    "role": ["Fighter", "Assassin"],
+    "lane": "EXP"
+  },
+  "8": {
+    "name": "Karina",
+    "role": ["Assassin"],
+    "lane": "Jungler"
+  },
+  "9": {
+    "name": "Akai",
+    "role": ["Tank"],
+    "lane": "Roamer"
+  },
+  "10": {
+    "name": "Franco",
+    "role": ["Tank"],
+    "lane": "Roamer"
+  },
+  "11": {
+    "name": "Bane",
+    "role": ["Fighter", "Mage"],
+    "lane": "EXP"
+  },
+  "12": {
+    "name": "Bruno",
+    "role": ["Marksman"],
+    "lane": "Gold"
+  },
+  "13": {
+    "name": "Clint",
+    "role": ["Marksman"],
+    "lane": "Gold"
+  },
+  "14": {
+    "name": "Rafaela",
+    "role": ["Support"],
+    "lane": "Roamer"
+  },
+  "15": {
+    "name": "Eudora",
+    "role": ["Mage"],
+    "lane": "Mid"
+  },
+  "16": {
+    "name": "Zilong",
+    "role": ["Fighter", "Assassin"],
+    "lane": "EXP"
+  },
+  "17": {
+    "name": "Fanny",
+    "role": ["Assassin"],
+    "lane": "Jungler"
+  },
+  "18": {
+    "name": "Layla",
+    "role": ["Marksman"],
+    "lane": "Gold"
+  },
+  "19": {
+    "name": "Minotaur",
+    "role": ["Tank", "Support"],
+    "lane": "Roamer"
+  },
+  "20": {
+    "name": "Lolita",
+    "role": ["Support", "Tank"],
+    "lane": "Roamer"
+  },
+  "21": {
+    "name": "Hayabusa",
+    "role": ["Assassin"],
+    "lane": "Jungler"
+  },
+  "22": {
+    "name": "Freya",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "23": {
+    "name": "Gord",
+    "role": ["Mage"],
+    "lane": "Mid"
+  },
+  "24": {
+    "name": "Natalia",
+    "role": ["Assassin"],
+    "lane": "Jungler"
+  },
+  "25": {
+    "name": "Kagura",
+    "role": ["Mage"],
+    "lane": "Mid"
+  },
+  "26": {
+    "name": "Chou",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "27": {
+    "name": "Sun",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "28": {
+    "name": "Alpha",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "29": {
+    "name": "Ruby",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "30": {
+    "name": "Yi Sun-shin",
+    "role": ["Assassin", "Marksman"],
+    "lane": "Jungler"
+  },
+  "31": {
+    "name": "Moskov",
+    "role": ["Marksman"],
+    "lane": "Gold"
+  },
+  "32": {
+    "name": "Johnson",
+    "role": ["Tank", "Support"],
+    "lane": "Roamer"
+  },
+  "33": {
+    "name": "Cyclops",
+    "role": ["Mage"],
+    "lane": "Mid"
+  },
+  "34": {
+    "name": "Estes",
+    "role": ["Support"],
+    "lane": "Roamer"
+  },
+  "35": {
+    "name": "Hilda",
+    "role": ["Tank", "Fighter"],
+    "lane": "EXP"
+  },
+  "36": {
+    "name": "Aurora",
+    "role": ["Mage"],
+    "lane": "Mid"
+  },
+  "37": {
+    "name": "Lapu-Lapu",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "38": {
+    "name": "Vexana",
+    "role": ["Mage"],
+    "lane": "Mid"
+  },
+  "39": {
+    "name": "Roger",
+    "role": ["Fighter", "Assassin"],
+    "lane": "EXP"
+  },
+  "40": {
+    "name": "Karrie",
+    "role": ["Marksman"],
+    "lane": "Gold"
+  },
+  "41": {
+    "name": "Gatotkaca",
+    "role": ["Fighter", "Tank"],
+    "lane": "EXP"
+  },
+  "42": {
+    "name": "Harley",
+    "role": ["Assassin", "Mage"],
+    "lane": "Jungler"
+  },
+  "43": {
+    "name": "Irithel",
+    "role": ["Marksman"],
+    "lane": "Gold"
+  },
+  "44": {
+    "name": "Grock",
+    "role": ["Tank", "Fighter"],
+    "lane": "Roamer"
+  },
+  "45": {
+    "name": "Argus",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "46": {
+    "name": "Odette",
+    "role": ["Mage"],
+    "lane": "Mid"
+  },
+  "47": {
+    "name": "Lancelot",
+    "role": ["Assassin"],
+    "lane": "Jungler"
+  },
+  "48": {
+    "name": "Diggie",
+    "role": ["Support"],
+    "lane": "Roamer"
+  },
+  "49": {
+    "name": "Hylos",
+    "role": ["Tank"],
+    "lane": "Roamer"
+  },
+  "50": {
+    "name": "Zhask",
+    "role": ["Mage"],
+    "lane": "Mid"
+  },
+  "51": {
+    "name": "Helcurt",
+    "role": ["Assassin"],
+    "lane": "Jungler"
+  },
+  "52": {
+    "name": "Pharsa",
+    "role": ["Mage"],
+    "lane": "Mid"
+  },
+  "53": {
+    "name": "Lesley",
+    "role": ["Marksman", "Assassin"],
+    "lane": "Gold"
+  },
+  "54": {
+    "name": "Jawhead",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "55": {
+    "name": "Angela",
+    "role": ["Support"],
+    "lane": "Roamer"
+  },
+  "56": {
+    "name": "Gusion",
+    "role": ["Assassin"],
+    "lane": "Jungler"
+  },
+  "57": {
+    "name": "Valir",
+    "role": ["Mage"],
+    "lane": "Mid"
+  },
+  "58": {
+    "name": "Martis",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "59": {
+    "name": "Uranus",
+    "role": ["Tank"],
+    "lane": "EXP"
+  },
+  "60": {
+    "name": "Hanabi",
+    "role": ["Marksman"],
+    "lane": "Gold"
+  },
+  "61": {
+    "name": "Chang'e",
+    "role": ["Mage"],
+    "lane": "Mid"
+  },
+  "62": {
+    "name": "Kaja",
+    "role": ["Support", "Fighter"],
+    "lane": "EXP"
+  },
+  "63": {
+    "name": "Selena",
+    "role": ["Assassin", "Mage"],
+    "lane": "Jungler"
+  },
+  "64": {
+    "name": "Aldous",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "65": {
+    "name": "Claude",
+    "role": ["Marksman"],
+    "lane": "Gold"
+  },
+  "66": {
+    "name": "Vale",
+    "role": ["Mage"],
+    "lane": "Mid"
+  },
+  "67": {
+    "name": "Leomord",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "68": {
+    "name": "Lunox",
+    "role": ["Mage"],
+    "lane": "Mid"
+  },
+  "69": {
+    "name": "Hanzo",
+    "role": ["Assassin"],
+    "lane": "Jungler"
+  },
+  "70": {
+    "name": "Belerick",
+    "role": ["Tank"],
+    "lane": "Roamer"
+  },
+  "71": {
+    "name": "Kimmy",
+    "role": ["Marksman", "Mage"],
+    "lane": "Gold"
+  },
+  "72": {
+    "name": "Thamuz",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "73": {
+    "name": "Harith",
+    "role": ["Mage"],
+    "lane": "Mid"
+  },
+  "74": {
+    "name": "Minsitthar",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "75": {
+    "name": "Kadita",
+    "role": ["Mage", "Assassin"],
+    "lane": "Mid"
+  },
+  "76": {
+    "name": "Faramis",
+    "role": ["Mage", "Support"],
+    "lane": "Roamer"
+  },
+  "77": {
+    "name": "Badang",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "78": {
+    "name": "Khufra",
+    "role": ["Tank"],
+    "lane": "Roamer"
+  },
+  "79": {
+    "name": "Granger",
+    "role": ["Marksman"],
+    "lane": "Gold"
+  },
+  "80": {
+    "name": "Guinevere",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "81": {
+    "name": "Esmeralda",
+    "role": ["Mage", "Tank"],
+    "lane": "Mid"
+  },
+  "82": {
+    "name": "Terizla",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "83": {
+    "name": "X.Borg",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "84": {
+    "name": "Ling",
+    "role": ["Assassin"],
+    "lane": "Jungler"
+  },
+  "85": {
+    "name": "Dyrroth",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "86": {
+    "name": "Lylia",
+    "role": ["Mage"],
+    "lane": "Mid"
+  },
+  "87": {
+    "name": "Baxia",
+    "role": ["Tank"],
+    "lane": "Roamer"
+  },
+  "88": {
+    "name": "Masha",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "89": {
+    "name": "Wanwan",
+    "role": ["Marksman"],
+    "lane": "Gold"
+  },
+  "90": {
+    "name": "Silvanna",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "91": {
+    "name": "Carmilla",
+    "role": ["Support", "Tank"],
+    "lane": "Roamer"
+  },
+  "92": {
+    "name": "Cecilion",
+    "role": ["Mage"],
+    "lane": "Mid"
+  },
+  "93": {
+    "name": "Atlas",
+    "role": ["Tank"],
+    "lane": "Roamer"
+  },
+  "94": {
+    "name": "Popol",
+    "role": ["Marksman"],
+    "lane": "Gold"
+  },
+  "95": {
+    "name": "Yu Zhong",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "96": {
+    "name": "Luo Yi",
+    "role": ["Mage"],
+    "lane": "Mid"
+  },
+  "97": {
+    "name": "Benedetta",
+    "role": ["Assassin", "Fighter"],
+    "lane": "EXP"
+  },
+  "98": {
+    "name": "Khaleed",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "99": {
+    "name": "Barats",
+    "role": ["Tank", "Fighter"],
+    "lane": "EXP"
+  },
+  "100": {
+    "name": "Brody",
+    "role": ["Marksman"],
+    "lane": "Gold"
+  },
+  "101": {
+    "name": "Yve",
+    "role": ["Mage"],
+    "lane": "Mid"
+  },
+  "102": {
+    "name": "Mathilda",
+    "role": ["Support", "Assassin"],
+    "lane": "Roamer"
+  },
+  "103": {
+    "name": "Paquito",
+    "role": ["Fighter", "Assassin"],
+    "lane": "EXP"
+  },
+  "104": {
+    "name": "Gloo",
+    "role": ["Tank"],
+    "lane": "EXP"
+  },
+  "105": {
+    "name": "Beatrix",
+    "role": ["Marksman"],
+    "lane": "Gold"
+  },
+  "106": {
+    "name": "Phoveus",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "107": {
+    "name": "Natan",
+    "role": ["Marksman"],
+    "lane": "Gold"
+  },
+  "108": {
+    "name": "Aulus",
+    "role": ["Fighter"],
+    "lane": "EXP"
+  },
+  "109": {
+    "name": "Aamon",
+    "role": ["Assassin"],
+    "lane": "Jungler"
+  },
+  "110": {
+    "name": "Floryn",
+    "role": ["Support"],
+    "lane": "Roamer"
+  },
+  "111": {
+    "name": "Valentina",
+    "role": ["Mage"],
+    "lane": "Mid"
+  },
+  "112": {
+    "name": "Edith",
+    "role": ["Tank", "Marksman"],
+    "lane": "EXP"
+  },
+  "113": {
+    "name": "Yin",
+    "role": ["Fighter", "Assassin"],
+    "lane": "EXP"
+  },
+  "114": {
+    "name": "Melissa",
+    "role": ["Marksman"],
+    "lane": "Gold"
+  },
+  "115": {
+    "name": "Xavier",
+    "role": ["Mage"],
+    "lane": "Mid"
+  },
+  "116": {
+    "name": "Julian",
+    "role": ["Mage", "Fighter"],
+    "lane": "EXP"
+  },
+  "117": {
+    "name": "Fredrinn",
+    "role": ["Fighter", "Tank"],
+    "lane": "EXP"
+  },
+  "118": {
+    "name": "Joy",
+    "role": ["Assassin"],
+    "lane": "EXP"
+  },
+  "119": {
+    "name": "Arlott",
+    "role": ["Fighter", "Assassin"],
+    "lane": "EXP"
+  },
+  "120": {
+    "name": "Novaria",
+    "role": ["Mage"],
+    "lane": "Mid"
+  },
+  "121": {
+    "name": "Ixia",
+    "role": ["Marksman"],
+    "lane": "Gold"
+  },
+  "122": {
+    "name": "Nolan",
+    "role": ["Assassin"],
+    "lane": "Jungler"
+  }
+}
