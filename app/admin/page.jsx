@@ -3,20 +3,44 @@ import { Switch, select } from "@nextui-org/react";
 import { useState } from "react";
 
 const Admin = () => {
-  const commands = [{ command: "ban" }];
-  const [selected, setSelected] = useState(false);
+  const [selected, setSelected] = useState([]);
+  const [list, setList] = useState([
+    {
+      name: "battle list",
+      status: false,
+    },
+    {
+      name: "battle lost",
+      status: false,
+    },
+    {
+      name: "battle lust",
+      status: false,
+    },
+    {
+      name: "battle last",
+      status: false,
+    },
+  ]);
+
   const swtitching = (name, idx) => {
     return (
       <div className="col-span-1 space-y-2">
         <p>
-          {idx + 1}.{name} {String(selected)}
+          {idx + 1}.{name}
         </p>
         <Switch
           onChange={async () => {
-            if (selected) {
-              await fetch("/api/ban", {});
-            }
-            setSelected(!selected);
+            await fetch("http://10.22.224.222:8080/battle", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                name: name,
+                status: true,
+              }),
+            });
           }}
           startContent={
             <svg
@@ -43,8 +67,11 @@ const Admin = () => {
   };
   return (
     <div className=" h-screen grid grid-cols-4 gap-4 text-slate-700 bg-slate-100  p-16 justify-center items-center">
+      {selected}
       <div className="p-8 col-span-3 xl font-bold  uppercase gap-4  grid grid-cols-8 w-full rounded-xl bg-white shadow-lg  transition-all transform duration-300">
-        {swtitching("banana", 1)}
+        {list.map((item, idx) => {
+          return swtitching(item.name, idx);
+        })}
       </div>
       <div className="col-span-1 font-semibold bg-white shadow-lg h-full rounded-xl space-y-4 p-8">
         <div className="h-1/3 space-y-4 overflow-auto">

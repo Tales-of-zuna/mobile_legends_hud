@@ -1,10 +1,9 @@
-'use client'
+"use client";
 import { useEffect, useState } from "react";
-import {io} from "socket.io-client";
+import { io } from "socket.io-client";
 
 const SocketPage = () => {
-
-let socket;
+  let socket;
 
 
 const [data, setData] = useState([]);
@@ -22,11 +21,10 @@ useEffect(()=> {
 
 },[])
 
-const socketInit = async () => {
-
-    socket = io("http://10.22.224.222:8080"); 
-    socket.on("connect",() => {
-        console.log("Successfully connected");
+  const socketInit = async () => {
+    socket = io("http://10.22.224.222:8080");
+    socket.on("connect", () => {
+      console.log("Successfully connected");
     });
 
     socket.on("battle data",(data) => {
@@ -38,7 +36,7 @@ const socketInit = async () => {
 
         }    
     });
-}
+  };
 
 const setMockData = async() => {
      await fetch("data.json").then((response)=>{
@@ -668,7 +666,7 @@ const setMockData = async() => {
     },])
 }
 
-return (
+  return (
     <div className=" static min-h-screen bg-lime-600 flex justify items-center">
 
     <div className=" bg-black bg-opacity-70 p-4 absolute bottom-0 left-0 right-0">
@@ -684,21 +682,27 @@ return (
         </div>
       </div>
 
-      {/* Health and Mana Bars */}
-      <div className="flex justify-between mb-4">
-        <div className="w-1/2 mr-2">
-          <div className="bg-red-500 rounded-lg">
-            <div className="bg-green-500 rounded-lg h-4" style={{ width: '70%' }}></div>
+        {/* Health and Mana Bars */}
+        <div className="flex justify-between mb-4">
+          <div className="w-1/2 mr-2">
+            <div className="bg-red-500 rounded-lg">
+              <div
+                className="bg-green-500 rounded-lg h-4"
+                style={{ width: "70%" }}
+              ></div>
+            </div>
+            <span className="block text-white mt-2">HP: 70%</span>
           </div>
-          <span className="block text-white mt-2">HP: 70%</span>
-        </div>
-        <div className="w-1/2 ml-2">
-          <div className="bg-blue-500 rounded-lg">
-            <div className="bg-blue-300 rounded-lg h-4" style={{ width: '50%' }}></div>
+          <div className="w-1/2 ml-2">
+            <div className="bg-blue-500 rounded-lg">
+              <div
+                className="bg-blue-300 rounded-lg h-4"
+                style={{ width: "50%" }}
+              ></div>
+            </div>
+            <span className="block text-white mt-2">MP: 50%</span>
           </div>
-          <span className="block text-white mt-2">MP: 50%</span>
         </div>
-      </div>
 
       <div className=" flex flex-row">
       {/* Minimap */}
@@ -713,34 +717,33 @@ return (
           ))}
           </div>
 
-      {/* Action Buttons */}
-      <div className="flex justify-center mt-4">
-        <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg mx-2">
-          Attack
-        </button>
-        <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg mx-2">
-          Defend
-        </button>
-        <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg mx-2">
-          Use Item
-        </button>
+        {/* Action Buttons */}
+        <div className="flex justify-center mt-4">
+          <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg mx-2">
+            Attack
+          </button>
+          <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg mx-2">
+            Defend
+          </button>
+          <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg mx-2">
+            Use Item
+          </button>
+        </div>
       </div>
     </div>
-    </div>
-
 
     // <div classNameName=" static min-h-screen bg-lime-600 flex justify items-center">
     //   <div classNameName=" absolute bottom-0 right-0 mr-10 ml-10  left-0 p-16 text-4xl font-bold text-slate-700 rounded-xl bg-white shadow-lg hover:shadow-xl  transition-all transform duration-300">
-          
-    //       <h1>Team Name</h1>  
+
+    //       <h1>Team Name</h1>
     //       {campList.map((camp,i)=> (
-            
-    //             camp.team_name 
-          
+
+    //             camp.team_name
+
     //       ))}
     //   </div>
     // </div>
   );
-}
+};
 
 export default SocketPage;
