@@ -11,12 +11,6 @@ const Admin = () => {
     {
       name: "battle lost",
     },
-    {
-      name: "battle lust",
-    },
-    {
-      name: "battle last",
-    },
   ];
 
   const switching = (name, idx) => {

@@ -1,18 +1,14 @@
-"use client";
-import { Image } from "@nextui-org/react";
-
-const VideoComponent = () => {
+const VideoComponent = (props) => {
   return (
     <div className="h-full w-full bg-green-500 absolute top-0 left-0">
-      <div className=" absolute bottom-0">
-        <div className="relative w-full"></div>
-        <Image
-          className="object-contain"
-          fill
-          src="https://www.dole.com/-/media/project/dole/produce-images/fruit/bannanas_web.png?rev=b27a9f94db1744e9ae702a0ba20871d4&hash=AF03ECA16ACB32D92A74462BE212E716"
-          alt=""
-        />
-      </div>
+      <video
+        loop
+        autoPlay
+        muted
+        className="h-screen w-screen object-fill"
+        src="/assets/test.mp4"
+      ></video>
+      <div className="absolute z-50 bottom-0 h-1/2">{props.data}</div>
     </div>
   );
 };
