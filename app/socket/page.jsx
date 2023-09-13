@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
+import PictureComponent from "@/components/pictureComponent";
+import VideoComponent from "@/components/videoComponent";
 
 const SocketPage = () => {
   let socket;
@@ -10,13 +12,14 @@ const [data, setData] = useState([]);
 
 const [campList1, setCampList1] = useState([]);
 const [campList2, setCampList2] = useState([]);
+const [type, setType]=useState("picture")
 
 
 
 
 useEffect(()=> {
-    // socketInit();
-    setMockData();
+    socketInit();
+    // setMockData();
     console.log("camp list", campList1);
 
 },[])
@@ -27,14 +30,16 @@ useEffect(()=> {
       console.log("Successfully connected");
     });
 
-    socket.on("battle data",(data) => {
-        console.log("data :", data);
-        if (data.message == "success") {
+    socket.on("battle list",(data) => {
 
-            setData(data.data);
-            setCampList1(data.data.camp_list);     
+        setType("video");
+       
+    });
 
-        }    
+
+    socket.on("battle lost",(data) => {
+        setType("picture")
+       
     });
   };
 
@@ -666,71 +671,84 @@ const setMockData = async() => {
     },])
 }
 
+const displayComponents = (name) => {
+    if (name === "video") {
+      return <VideoComponent />;
+    } else if (name === "picture") {
+      return <PictureComponent />;
+    }
+  }; 
+
   return (
-    <div className=" static min-h-screen bg-lime-600 flex justify items-center">
 
-    <div className=" bg-black bg-opacity-70 p-4 absolute bottom-0 left-0 right-0">
-      {/* Player Stats */}
-      <div className="flex justify-between mb-4">
-        <div className="text-white">
-          <span className="block">Team Name</span>
-          <span className="block text-gray-400">Level 5</span>
-        </div>
-        <div className="text-white">
-          <span className="block">Gold: 1000</span>
-          <span className="block">XP: 500</span>
-        </div>
-      </div>
+    <div className="h-screen bg-green-500">{displayComponents(type)}</div>
 
-        {/* Health and Mana Bars */}
-        <div className="flex justify-between mb-4">
-          <div className="w-1/2 mr-2">
-            <div className="bg-red-500 rounded-lg">
-              <div
-                className="bg-green-500 rounded-lg h-4"
-                style={{ width: "70%" }}
-              ></div>
-            </div>
-            <span className="block text-white mt-2">HP: 70%</span>
-          </div>
-          <div className="w-1/2 ml-2">
-            <div className="bg-blue-500 rounded-lg">
-              <div
-                className="bg-blue-300 rounded-lg h-4"
-                style={{ width: "50%" }}
-              ></div>
-            </div>
-            <span className="block text-white mt-2">MP: 50%</span>
-          </div>
-        </div>
 
-      <div className=" flex flex-row">
-      {/* Minimap */}
-      {campList1[0]?.player_list.map((player)=>(
+
+    // <div className=" static min-h-screen bg-lime-600 flex justify items-center">
+
+    // <div className=" bg-black bg-opacity-70 p-4 absolute bottom-0 left-0 right-0">
+    //   {/* Player Stats */}
+    //   <div className="flex justify-between mb-4">
+    //     <div className="text-white">
+    //       <span className="block">Team Name</span>
+    //       <span className="block text-gray-400">Level 5</span>
+    //     </div>
+    //     <div className="text-white">
+    //       <span className="block">Gold: 1000</span>
+    //       <span className="block">XP: 500</span>
+    //     </div>
+    //   </div>
+
+    //     {/* Health and Mana Bars */}
+    //     <div className="flex justify-between mb-4">
+    //       <div className="w-1/2 mr-2">
+    //         <div className="bg-red-500 rounded-lg">
+    //           <div
+    //             className="bg-green-500 rounded-lg h-4"
+    //             style={{ width: "70%" }}
+    //           ></div>
+    //         </div>
+    //         <span className="block text-white mt-2">HP: 70%</span>
+    //       </div>
+    //       <div className="w-1/2 ml-2">
+    //         <div className="bg-blue-500 rounded-lg">
+    //           <div
+    //             className="bg-blue-300 rounded-lg h-4"
+    //             style={{ width: "50%" }}
+    //           ></div>
+    //         </div>
+    //         <span className="block text-white mt-2">MP: 50%</span>
+    //       </div>
+    //     </div>
+
+    //   <div className=" flex flex-row">
+    //   {/* Minimap */}
+    //   {campList1[0]?.player_list.map((player)=>(
           
-          <div className=" bg-gray-800 rounded-lg p-2">
-        <div className="bg-gray-600 w-48 h-32 rounded-lg">
-            {player.name}
-          {/* Minimap content here */}
-        </div>
-      </div>
-          ))}
-          </div>
+    //       <div className=" bg-gray-800 rounded-lg p-2">
+    //     <div className="bg-gray-600 w-48 h-32 rounded-lg">
+    //         {player.name}
+    //       {/* Minimap content here */}
+    //     </div>
+    //   </div>
+    //       ))}
+    //       </div>
 
-        {/* Action Buttons */}
-        <div className="flex justify-center mt-4">
-          <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg mx-2">
-            Attack
-          </button>
-          <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg mx-2">
-            Defend
-          </button>
-          <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg mx-2">
-            Use Item
-          </button>
-        </div>
-      </div>
-    </div>
+    //     {/* Action Buttons */}
+    //     <div className="flex justify-center mt-4">
+    //       <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg mx-2">
+    //         Attack
+    //       </button>
+    //       <button className="bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg mx-2">
+    //         Defend
+    //       </button>
+    //       <button className="bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg mx-2">
+    //         Use Item
+    //       </button>
+    //     </div>
+    //   </div>
+    // </div>
 
     // <div classNameName=" static min-h-screen bg-lime-600 flex justify items-center">
     //   <div classNameName=" absolute bottom-0 right-0 mr-10 ml-10  left-0 p-16 text-4xl font-bold text-slate-700 rounded-xl bg-white shadow-lg hover:shadow-xl  transition-all transform duration-300">
