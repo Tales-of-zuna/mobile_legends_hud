@@ -13,12 +13,12 @@ const Home = () => {
     socket.on("connect", () => {
       console.log("Successfully connected");
     });
-    socket.on("battle list", (data) => {
+    socket.on("player stats", (data) => {
       setData(data);
       console.log(data);
       setType("video");
     });
-    socket.on("battle lost", (data) => {
+    socket.on("team head to head", (data) => {
       setData(data);
       setType("picture");
     });
