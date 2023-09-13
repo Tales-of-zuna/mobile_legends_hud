@@ -3,44 +3,46 @@ import { Switch, select } from "@nextui-org/react";
 import { useState } from "react";
 
 const Admin = () => {
-  const [selected, setSelected] = useState([]);
-  const [list, setList] = useState([
+  const [selected, setSelected] = useState();
+  const list = [
     {
       name: "battle list",
-      status: false,
     },
     {
       name: "battle lost",
-      status: false,
     },
     {
       name: "battle lust",
-      status: false,
     },
     {
       name: "battle last",
-      status: false,
     },
-  ]);
+  ];
 
-  const swtitching = (name, idx) => {
+  const switching = (name, idx) => {
     return (
       <div className="col-span-1 space-y-2">
         <p>
           {idx + 1}.{name}
         </p>
         <Switch
+          isSelected={selected == idx}
           onChange={async () => {
-            await fetch("http://10.22.224.222:8080/battle", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                name: name,
-                status: true,
-              }),
-            });
+            if (selected === idx) {
+              setSelected(null);
+            } else {
+              await fetch("http://10.22.224.222:8080/battle", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  name: name,
+                  status: true,
+                }),
+              });
+              setSelected(idx);
+            }
           }}
           startContent={
             <svg
@@ -67,36 +69,36 @@ const Admin = () => {
   };
   return (
     <div className=" h-screen grid grid-cols-4 gap-4 text-slate-700 bg-slate-100  p-16 justify-center items-center">
-      {selected}
       <div className="p-8 col-span-3 xl font-bold  uppercase gap-4  grid grid-cols-8 w-full rounded-xl bg-white shadow-lg  transition-all transform duration-300">
         {list.map((item, idx) => {
-          return swtitching(item.name, idx);
+          return switching(item.name, idx);
         })}
       </div>
       <div className="col-span-1 font-semibold bg-white shadow-lg h-full rounded-xl space-y-4 p-8">
-        <div className="h-1/3 space-y-4 overflow-auto">
+        <div className="space-y-4">
           <p className="text-xl">Currently ON</p>
           <div className=" flex text-white gap-2 capitalize text-sm flex-wrap">
-            <div className="rounded-full font-bold py-1 px-2 bg-green-500">
-              Ban phase
-            </div>
-            <div className="rounded-full font-bold py-1 px-2 bg-green-500">
-              Ban phase
-            </div>
-            <div className="rounded-full font-bold py-1 px-2 bg-green-500">
-              Ban phase
+            <div className="rounded-full transition-all transform duration-300 w-full text-center font-bold py-1 px-2 bg-green-500">
+              {list[selected]?.name}
             </div>
           </div>
         </div>
         <div className="h-2/3 space-y-4">
           <p className="text-xl">Commands</p>
-          <div className=" text-slate-400">
-            <p className="hover:text-slate-800 hover:translate-x-2 transition-all transform duration-300">
-              1.Ban phase (banning)
-            </p>
-            <p className="hover:text-slate-800 hover:translate-x-2 transition-all transform duration-300">
-              1.Ban phase (banning)
-            </p>
+          <div className="flex flex-col items-start text-slate-400">
+            {list.map((item, idx) => {
+              return (
+                <button
+                  onClick={() => setSelected(idx)}
+                  key={idx}
+                  className={`${
+                    selected == idx ? "text-slate-800 translate-x-2" : ""
+                  } hover:text-slate-800 hover:translate-x-2 transition-all transform duration-300`}
+                >
+                  {idx + 1}.{item.name}
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
