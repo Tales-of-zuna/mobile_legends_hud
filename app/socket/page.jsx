@@ -9,16 +9,9 @@ const SocketPage = () => {
 
   const [data, setData] = useState([]);
 
-  const [campList1, setCampList1] = useState([]);
-  const [campList2, setCampList2] = useState([]);
+  // const [campList1, setCampList1] = useState([]);
+  // const [campList2, setCampList2] = useState([]);
   const [type, setType] = useState();
-
-  useEffect(() => {
-    socketInit();
-    setCampList1();
-    setCampList2();
-  }, []);
-
   const socketInit = async () => {
     socket = io("http://10.22.224.222:8080");
     socket.on("connect", () => {
@@ -27,6 +20,7 @@ const SocketPage = () => {
 
     socket.on("battle list", (data) => {
       setData(data);
+      console.log(data);
       setType("video");
     });
 
@@ -35,10 +29,13 @@ const SocketPage = () => {
       setType("picture");
     });
   };
+  useEffect(() => {
+    socketInit();
+  }, []);
 
   const displayComponents = (name) => {
     if (name === "video") {
-      return <VideoComponent data={data} />;
+      return <VideoComponent data={data.data} />;
     } else if (name === "picture") {
       return <PictureComponent />;
     }
