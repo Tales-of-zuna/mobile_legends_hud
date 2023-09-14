@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 const Admin = () => {
   const [selected, setSelected] = useState();
   const [selectedPop, setSelectedPop] = useState();
-
   const [battleId, setBattleId] = useState();
 
   const list = [
@@ -90,7 +89,7 @@ const Admin = () => {
           isSelected={selected == idx}
           onChange={async () => {
             if (selected === idx) {
-              await fetch("http://10.22.224.222:8080/battle/" + battleId, {
+              await fetch("http://10.22.224.217:8080/battle/" + battleId, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -100,19 +99,9 @@ const Admin = () => {
                   status: false,
                 }),
               });
-              // await fetch("http://10.22.224.220:8080/battle/" + battleId, {
-              //   method: "POST",
-              //   headers: {
-              //     "Content-Type": "application/json",
-              //   },
-              //   body: JSON.stringify({
-              //     name: name,
-              //     status: false,
-              //   }),
-              // });
               setSelected(null);
             } else {
-              await fetch("http://10.22.224.222:8080/battle/" + battleId, {
+              await fetch("http://10.22.224.217:8080/battle/" + battleId, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -122,16 +111,6 @@ const Admin = () => {
                   status: true,
                 }),
               });
-              // await fetch("http://10.22.224.220:8080/battle/" + battleId, {
-              //   method: "POST",
-              //   headers: {
-              //     "Content-Type": "application/json",
-              //   },
-              //   body: JSON.stringify({
-              //     name: name,
-              //     status: true,
-              //   }),
-              // });
               setSelected(idx);
             }
           }}

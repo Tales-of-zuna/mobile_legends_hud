@@ -13,13 +13,13 @@ const Home = () => {
   const [data, setData] = useState([]);
   const [type, setType] = useState();
   const socketInit = async () => {
-    socket = io("http://10.22.224.220:8080");
+    socket = io("http://10.22.224.217:8080");
     socket.on("connect", () => {
       console.log("Successfully connected");
     });
-    socket.on("player stats full", (data) => {
+    socket.on("drafting overlay", (data) => {
       setData(data);
-      setType("playerStatsFull");
+      setType("draftingOverlay");
     });
     socket.on("player stats lower", (data) => {
       setData(data);
