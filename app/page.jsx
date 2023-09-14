@@ -1,26 +1,29 @@
 "use client";
+import DraftingOverlay from "@/components/screens/draftingOverlay";
+import InGameOverlay from "@/components/screens/inGameOverlay";
+import ItemBuild from "@/components/screens/itemBuild";
+import PlayerStatsFull from "@/components/screens/playerStatsFull";
+import PlayerStatsLower from "@/components/screens/playerStatsLower";
+import RealTimeVictoryDefeatRate from "@/components/screens/realTimeVictoryDefeatRate";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import PictureComponent from "@/components/screens/pictureComponent";
-import VideoComponent from "@/components/screens/videoComponent";
 
 const Home = () => {
   let socket;
   const [data, setData] = useState([]);
   const [type, setType] = useState();
   const socketInit = async () => {
-    socket = io("http://10.22.224.222:8080");
+    socket = io("http://10.22.224.220:8080");
     socket.on("connect", () => {
       console.log("Successfully connected");
     });
-    socket.on("player stats", (data) => {
+    socket.on("player stats full", (data) => {
       setData(data);
-      console.log(data);
-      setType("video");
+      setType("playerStatsFull");
     });
-    socket.on("team head to head", (data) => {
+    socket.on("player stats lower", (data) => {
       setData(data);
-      setType("picture");
+      setType("playerStatsLower");
     });
   };
   useEffect(() => {
@@ -28,10 +31,18 @@ const Home = () => {
   }, []);
 
   const displayComponents = (name) => {
-    if (name === "video") {
-      return <VideoComponent data={data.data} />;
-    } else if (name === "picture") {
-      return <PictureComponent />;
+    if (name === "draftingOverlay") {
+      return <DraftingOverlay data={data.data} />;
+    } else if (name === "InGameOverlay") {
+      return <InGameOverlay data={data.data} />;
+    } else if (name === "RealTimeVictoryDefeatRate") {
+      return <RealTimeVictoryDefeatRate data={data.data} />;
+    } else if (name === "ItemBuild") {
+      return <ItemBuild data={data.data} />;
+    } else if (name === "PlayerStatsFull") {
+      return <PlayerStatsFull data={data.data} />;
+    } else if (name === "PlayerStatsLower") {
+      return <PlayerStatsLower data={data.data} />;
     }
   };
   const showPopup = (name) => {

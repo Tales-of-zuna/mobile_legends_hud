@@ -10,7 +10,10 @@ const Admin = () => {
 
   const list = [
     {
-      name: "player stats",
+      name: "player stats full",
+    },
+    {
+      name: "player stats lower",
     },
     {
       name: "team head to head",
@@ -97,6 +100,16 @@ const Admin = () => {
                   status: false,
                 }),
               });
+              // await fetch("http://10.22.224.220:8080/battle/" + battleId, {
+              //   method: "POST",
+              //   headers: {
+              //     "Content-Type": "application/json",
+              //   },
+              //   body: JSON.stringify({
+              //     name: name,
+              //     status: false,
+              //   }),
+              // });
               setSelected(null);
             } else {
               await fetch("http://10.22.224.222:8080/battle/" + battleId, {
@@ -109,6 +122,16 @@ const Admin = () => {
                   status: true,
                 }),
               });
+              // await fetch("http://10.22.224.220:8080/battle/" + battleId, {
+              //   method: "POST",
+              //   headers: {
+              //     "Content-Type": "application/json",
+              //   },
+              //   body: JSON.stringify({
+              //     name: name,
+              //     status: true,
+              //   }),
+              // });
               setSelected(idx);
             }
           }}
