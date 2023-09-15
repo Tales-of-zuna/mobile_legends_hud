@@ -1,12 +1,12 @@
 "use client";
 
+import RealTimeVictoryDefeatRate from "@/components/popups/realTimeVictoryDefeatRate";
 import DraftingOverlay from "@/components/screens/draftingOverlay";
 import InGameOverlay from "@/components/screens/inGameOverlay";
 import InGameStat from "@/components/screens/inGameStat";
 import ItemBuild from "@/components/screens/itemBuild";
 import PlayerStatsFull from "@/components/screens/playerStatsFull";
 import PlayerStatsLower from "@/components/screens/playerStatsLower";
-import RealTimeVictoryDefeatRate from "@/components/screens/realTimeVictoryDefeatRate";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
