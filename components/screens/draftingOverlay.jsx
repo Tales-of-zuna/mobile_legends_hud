@@ -1,5 +1,6 @@
 "use client";
-import { Image } from "@nextui-org/react";
+
+import Image from "next/image";
 
 const DraftingOverlay = (props) => {
   console.log(props.data.camp_list);
@@ -14,11 +15,11 @@ const DraftingOverlay = (props) => {
               <div className="flex gap-4 text-white">
                 {props.data?.camp_list[0].player_list.map((player) => {
                   return (
-                    <div className="relative" key={player.name}>
+                    <div className="relative h-56 w-32" key={player.name}>
                       <Image
                         alt=""
                         fill
-                        className="object-contain h-44"
+                        className="object-contain"
                         src={"/assets/player.png"}
                       />{" "}
                       <p className="w-full bottom-0 z-20 text-stone-800 font-bold absolute text-center">
@@ -34,11 +35,11 @@ const DraftingOverlay = (props) => {
               <div className="flex gap-4 text-white">
                 {props.data?.camp_list[1].player_list.map((player) => {
                   return (
-                    <div className="relative" key={player.name}>
+                    <div className="relative h-56 w-32" key={player.name}>
                       <Image
                         alt=""
                         fill
-                        className="object-contain h-44"
+                        className="object-contain "
                         src={"/assets/player.png"}
                       />{" "}
                       <p className="w-full bottom-0 z-20 text-stone-800 font-bold absolute text-center">
