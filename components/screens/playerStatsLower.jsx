@@ -1,5 +1,5 @@
 const PlayerStatsLower = () => {
-  return <div></div>;
+    return <div className=" text-slate-950"> player stats lower</div>;
 };
 
 export default PlayerStatsLower;
