@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [data, setData] = useState();
   async function fetchWithTimeout(resource, options = {}) {
     await new Promise((r) => setTimeout(r, 5000));
     const { timeout = 8000 } = options;
@@ -49,9 +50,8 @@ const Home = () => {
           hideIsOpen(10000);
         }
       });
-
-      // console.log(new Date());
-      // console.log(data);
+      console.log(data);
+      setData(data);
     } catch (error) {
       console.log(error.name);
     } finally {
@@ -70,23 +70,8 @@ const Home = () => {
       battleid: "165489743059134510",
       dataid: 0,
     };
-
     getBattleDataRecursive(payload);
   }, []);
-
-  const customStyles = {
-    overlay: {
-      backgroundColor: "rgba(255, 255, 255, 0)",
-    },
-    content: {
-      top: "auto",
-      left: "50%",
-      right: "auto",
-      bottom: "0%",
-      marginRight: "-50%",
-      transform: "translate(-50%, -50%)",
-    },
-  };
 
   const displayComponents = (name) => {
     if (name === "draftingOverlay") {
@@ -115,22 +100,10 @@ const Home = () => {
   return (
     <div className="h-screen bg-green-500">
       {/* <div className="h-full">{displayComponents(type)}</div> */}
+      <DraftingOverlay data={data?.data} />
       {/* <div>{showPopup(name)}</div> */}
-      {/* <Modal
-        isOpen={isOpen}
-        ariaHideApp={false}
-        onRequestClose={() => setIsOpen(false)}
-        style={customStyles}
-      >
-        <Image
-          alt=""
-          fill="true"
-          className="object-contain h-44"
-          src={"/assets/tortoise.jpg"}
-        />
-      </Modal> */}
 
-      <div
+      {/* <div
         className={` absolute  overflow-hidden  bottom-0 w-full flex justify-center`}
       >
         <div
@@ -152,7 +125,7 @@ const Home = () => {
             transition-duration: 3000ms;
           }
         `}
-      </style>
+      </style> */}
     </div>
   );
 };
