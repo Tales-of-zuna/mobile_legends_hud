@@ -67,7 +67,9 @@ const DraftingOverlay = (props) => {
                           style={{ width: `132px`, height: `190px` }}
                         >
                           <Image
-                            src={"/assets/teamLogo1.png"}
+                            src={`/heroes/${
+                              player.heroid ? player.heroid : "teamLogo1"
+                            }.png`}
                             alt=""
                             className="object-contain z-10"
                             fill
@@ -87,7 +89,7 @@ const DraftingOverlay = (props) => {
                     })}
                   </div>
                   <div className="flex" style={{ height: `73px` }}>
-                    {props.data?.camp_list[1].player_list.map((player) => {
+                    {props.data?.camp_list[0].player_list.map((player) => {
                       return (
                         <div
                           key={player.ban_heroid}
@@ -160,7 +162,9 @@ const DraftingOverlay = (props) => {
                           style={{ width: `132px`, height: `190px` }}
                         >
                           <Image
-                            src={"/assets/player.png"}
+                            src={`/heroes/${
+                              player.heroid ? player.heroid : "teamLogo2"
+                            }.png`}
                             alt=""
                             className="object-contain z-10"
                             fill
