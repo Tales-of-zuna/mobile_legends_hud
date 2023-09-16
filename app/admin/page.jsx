@@ -1,11 +1,18 @@
 "use client";
 import { Switch } from "@nextui-org/react";
 import { useEffect, useState } from "react";
+import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 
 const Admin = () => {
     const [selected, setSelected] = useState();
     const [selectedPop, setSelectedPop] = useState();
+    const [battleData, setBattleData] = useState([]);
+    const [refereeId, setRefereeId] = useState(89852988);
+    const [battleList, setBattleList] = useState([]);
     const [battleId, setBattleId] = useState();
+    const [activeTab, setActiveTab] = useState("1");
+    const [team1Score, setTeam1Score] = useState(0);
+    const [team2Score, setTeam2Score] = useState(0);
 
     const bc = new BroadcastChannel("admin");
 
@@ -63,17 +70,45 @@ const Admin = () => {
         },
     ];
 
-    const getBattleId = async () => {
+    const getBattleList = async () => {
         const id = await fetch(
-            "http://esportsdata.mobilelegends.com:30260/battlelist/playing?authkey=6646f93ab8cf795f3f78a7ed73469cf7"
+            "http://esportsdata.mobilelegends.com:30260/battlelist/judge?authkey=6646f93ab8cf795f3f78a7ed73469cf7&judgeid=" +
+                refereeId
         );
         const data = await id.json();
         console.log(data);
-        setBattleId(data.battleids[0]);
+        if (data.message == "success") {
+            const arr = data.result.slice(0, 5);
+            setBattleList(arr);
+        } else window.alert(data.message);
     };
-    useEffect(() => {
-        getBattleId();
-    }, []);
+
+    const getBattleData = async (battleId) => {
+        const id = await fetch(
+            "http://esportsdata.mobilelegends.com:30260/battledata?authkey=6646f93ab8cf795f3f78a7ed73469cf7&battleid=" +
+                battleId +
+                "&dataid=0"
+        );
+        const data = await id.json();
+        console.log(data);
+        if (data.message == "success") {
+            setBattleData([data.data]);
+            setActiveTab("2");
+        } else window.alert(data.message);
+    };
+    const enterBattle = async () => {
+        bc.postMessage({
+            type: "draftingOverlay",
+            data: {
+                team1: team1Score,
+                team2: team2Score,
+                battleId: battleId,
+            },
+        });
+        setActiveTab("3");
+    };
+
+    useEffect(() => {}, []);
 
     const switching = (name, idx) => {
         return (
@@ -142,7 +177,6 @@ const Admin = () => {
                         } else {
                             bc.postMessage({ type: "state-update-popup", data: name });
                             // setSelected(idx);
-
                             setSelectedPop(idx);
                         }
                     }}
@@ -169,66 +203,159 @@ const Admin = () => {
         );
     };
     return (
-        <div className=" h-screen grid grid-cols-4 gap-4 text-slate-700 bg-slate-100  p-16 justify-center items-center">
-            <div className="col-span-3 space-y-4">
-                <div className="p-8 font-bold  uppercase gap-4 grid grid-cols-4 w-full rounded-xl bg-white shadow-lg  transition-all transform duration-300">
-                    <div className="col-span-4 text-xl">Screens</div>
-                    {list.map((item, idx) => {
-                        return <div key={idx}>{switching(item.name, idx)}</div>;
-                    })}
-                </div>
-                <div className="p-8 font-bold  uppercase gap-4 grid grid-cols-4 w-full rounded-xl bg-white shadow-lg  transition-all transform duration-300">
-                    <div className="col-span-4 text-xl">Popups</div>
-                    {popupList.map((item, idx) => {
-                        return <div key={idx}>{popupSwitching(item.name, idx)}</div>;
-                    })}
-                </div>
-            </div>
-            <div className="col-span-1 font-semibold bg-white shadow-lg h-full rounded-xl space-y-4 p-8">
-                <div className="space-y-4">
-                    <p className="text-xl">Current SCREEN</p>
-                    <div className=" flex text-white gap-2 capitalize text-sm flex-wrap">
-                        <div className="rounded-full transition-all transform duration-300 w-full text-center font-bold py-1 px-2 bg-green-500">
-                            {list[selected]?.name}
+        <>
+            <div className="flex w-full flex-col text-slate-700 bg-white  p-16 ">
+                <Tabs
+                    selectedKey={activeTab}
+                    aria-label="Options"
+                    onSelectionChange={(e) => {
+                        setActiveTab(e);
+                    }}>
+                    <Tab
+                        key="1"
+                        title="Referee ID"
+                        onClick={() => {
+                            setActiveTab("1");
+                        }}>
+                        <div className="p-8 font-bold flex flex-row uppercase gap-4  w-full rounded-xl bg-slate-100 shadow-lg  transition-all transform duration-300">
+                            <div className=" text-xl">Enter Referee Id :</div>
+                            <input
+                                placeholder="Referee id"
+                                onChange={(e) => {
+                                    setRefereeId(e.target.value);
+                                    console.log("id :", refereeId);
+                                }}></input>
+                            <button
+                                className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                onClick={() => {
+                                    getBattleList();
+                                }}>
+                                Ok
+                            </button>
                         </div>
-                    </div>
-                </div>
-                <div className=" space-y-2">
-                    <p className="text-xl">Screens</p>
-                    <div className="flex flex-col items-start text-slate-400">
-                        {list.map((item, idx) => {
-                            return (
-                                <button
-                                    onClick={() => setSelected(idx)}
-                                    key={idx}
-                                    className={`${
-                                        selected == idx ? "text-slate-800 translate-x-2" : ""
-                                    } hover:text-slate-800 hover:translate-x-2 transition-all transform duration-300`}>
-                                    {idx + 1}.{item.name}
-                                </button>
-                            );
-                        })}
-                    </div>
-                </div>
-                <div className=" space-y-2">
-                    <p className="text-xl">Popups</p>
-                    <div className="flex flex-col items-start text-slate-400">
-                        {popupList.map((item, idx) => {
-                            return (
-                                <button
-                                    onClick={() => setSelectedPop(idx)}
-                                    key={idx}
-                                    className={`${
-                                        selectedPop == idx ? "text-slate-800 translate-x-2" : ""
-                                    } hover:text-slate-800 hover:translate-x-2 transition-all transform duration-300`}>
-                                    {idx + 1}.{item.name}
-                                </button>
-                            );
-                        })}
-                    </div>
-                </div>
+                        <div className="p-8 font-bold  uppercase gap-4 flex flex-col w-full rounded-xl bg-slate-100 shadow-lg  transition-all transform duration-300">
+                            <div className=" text-xl">Battle List</div>
+                            {battleList.map((item, idx) => {
+                                return (
+                                    <div key={idx}>
+                                        <button
+                                            onClick={() => {
+                                                getBattleData(BigInt(item.battleid));
+                                                setBattleId(BigInt(item.battleid));
+                                            }}
+                                            className="bg-blue-500 hover:bg-blue-700  text-slate-600 font-bold py-2 px-4 rounded">
+                                            <p className=" text-white">{item.reporttime}</p>
+                                            <p>{item.battleid}</p>
+                                        </button>
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </Tab>
+                    <Tab key="2" title="Set Score">
+                        <div className="p-8 font-bold flex flex-row uppercase gap-4  w-full rounded-xl bg-slate-100 shadow-lg  transition-all transform duration-300">
+                            {battleData[0] ? (
+                                <>
+                                    <div className=" text-xl">
+                                        {battleData[0]?.camp_list[0]?.team_name} :
+                                    </div>
+                                    <input
+                                        placeholder="Enter Score"
+                                        onChange={(e) => {
+                                            setTeam1Score(e.target.value);
+                                        }}></input>
+                                    <div className=" text-xl">
+                                        {battleData[0]?.camp_list[1]?.team_name} :
+                                    </div>
+                                    <input
+                                        placeholder="Enter Score"
+                                        onChange={(e) => {
+                                            setTeam2Score(e.target.value);
+                                        }}></input>
+                                    <button
+                                        className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                        onClick={() => {
+                                            enterBattle();
+                                        }}>
+                                        Enter Battle
+                                    </button>
+                                </>
+                            ) : (
+                                <div></div>
+                            )}
+                        </div>
+                    </Tab>
+                    <Tab key="3" title="Battle">
+                        <div className=" h-screen grid grid-cols-4 gap-4 text-slate-700 bg-slate-100  p-16 justify-center items-center">
+                            <div className="col-span-3 space-y-4">
+                                <div className="p-8 font-bold  uppercase gap-4 grid grid-cols-4 w-full rounded-xl bg-white shadow-lg  transition-all transform duration-300">
+                                    <div className="col-span-4 text-xl">Screens</div>
+                                    {list.map((item, idx) => {
+                                        return <div key={idx}>{switching(item.name, idx)}</div>;
+                                    })}
+                                </div>
+                                <div className="p-8 font-bold  uppercase gap-4 grid grid-cols-4 w-full rounded-xl bg-white shadow-lg  transition-all transform duration-300">
+                                    <div className="col-span-4 text-xl">Popups</div>
+                                    {popupList.map((item, idx) => {
+                                        return (
+                                            <div key={idx}>{popupSwitching(item.name, idx)}</div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                            <div className="col-span-1 font-semibold bg-white shadow-lg h-full rounded-xl space-y-4 p-8">
+                                <div className="space-y-4">
+                                    <p className="text-xl">Current SCREEN</p>
+                                    <div className=" flex text-white gap-2 capitalize text-sm flex-wrap">
+                                        <div className="rounded-full transition-all transform duration-300 w-full text-center font-bold py-1 px-2 bg-green-500">
+                                            {list[selected]?.name}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className=" space-y-2">
+                                    <p className="text-xl">Screens</p>
+                                    <div className="flex flex-col items-start text-slate-400">
+                                        {list.map((item, idx) => {
+                                            return (
+                                                <button
+                                                    onClick={() => setSelected(idx)}
+                                                    key={idx}
+                                                    className={`${
+                                                        selected == idx
+                                                            ? "text-slate-800 translate-x-2"
+                                                            : ""
+                                                    } hover:text-slate-800 hover:translate-x-2 transition-all transform duration-300`}>
+                                                    {idx + 1}.{item.name}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                                <div className=" space-y-2">
+                                    <p className="text-xl">Popups</p>
+                                    <div className="flex flex-col items-start text-slate-400">
+                                        {popupList.map((item, idx) => {
+                                            return (
+                                                <button
+                                                    onClick={() => setSelectedPop(idx)}
+                                                    key={idx}
+                                                    className={`${
+                                                        selectedPop == idx
+                                                            ? "text-slate-800 translate-x-2"
+                                                            : ""
+                                                    } hover:text-slate-800 hover:translate-x-2 transition-all transform duration-300`}>
+                                                    {idx + 1}.{item.name}
+                                                </button>
+                                            );
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </Tab>
+                </Tabs>
             </div>
-        </div>
+        </>
     );
 };
 
