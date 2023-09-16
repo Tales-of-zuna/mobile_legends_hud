@@ -98,7 +98,9 @@ const DraftingOverlay = (props) => {
                         >
                           <Image
                             src={`/heroes/${
-                              player?.ban_heroid ? player.ban_heroid : ""
+                              player?.ban_heroid
+                                ? player.ban_heroid
+                                : "teamLogo1"
                             }.png`}
                             alt=""
                             className="object-fill"
@@ -193,7 +195,9 @@ const DraftingOverlay = (props) => {
                         >
                           <Image
                             src={`/heroes/${
-                              player?.ban_heroid ? player.ban_heroid : ""
+                              player?.ban_heroid
+                                ? player.ban_heroid
+                                : "teamLogo2"
                             }.png`}
                             alt=""
                             className="object-fill"
