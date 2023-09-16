@@ -64,6 +64,7 @@ const Home = () => {
   async function getBattleDataRecursive(payload) {
     let data;
 
+    console.log("id" + payload?.battleId);
     try {
       const response = await fetchWithTimeout(
         "http://esportsdata.mobilelegends.com:30260/battledata?authkey=6646f93ab8cf795f3f78a7ed73469cf7&battleid=" +
@@ -105,6 +106,7 @@ const Home = () => {
         data.data.tortoise_left_time == 2
       ) {
         if (!turtleState) {
+          console.log("turtle");
           setPopUpType("turtle cam");
           turtleTimer();
         }
@@ -112,6 +114,8 @@ const Home = () => {
 
       if (data.data.lord_left_time == 1 || data.data.lord_left_time == 2) {
         if (!lordState) {
+          console.log("lord turluuu");
+
           setPopUpType("lord cam");
           lordTimer();
         }
