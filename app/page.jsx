@@ -39,10 +39,10 @@ const Home = () => {
   };
 
   const lordTimer = () => {
-    setTurtleState(true);
+    setLordState(true);
 
     setTimeout(() => {
-      setTurtleState(false);
+      setLordState(false);
     }, 5000);
   };
 
@@ -168,7 +168,7 @@ const Home = () => {
 
         console.log("data fom admin" + event.data.data.battleId);
         setTeamScore(event.data.data);
-        let payload = { battleId: event.data.data.battleId, dataid: 0 };
+        let payload = { battleId: "836081816120432372", dataid: 0 };
         getBattleDataRecursive(payload);
         // setType(event.data.type);
       } else if (event.data.type == "state-update-screen") {
