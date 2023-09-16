@@ -8,7 +8,7 @@ const Admin = () => {
   const [selectedPop, setSelectedPop] = useState();
   const [battleData, setBattleData] = useState([]);
   // const [refereeId, setRefereeId] = useState(89852988);
-  const [refereeId, setRefereeId] = useState(388923573);
+  const [refereeId, setRefereeId] = useState(595669932);
   const [battleList, setBattleList] = useState([]);
   const [battleId, setBattleId] = useState();
   const [activeTab, setActiveTab] = useState("1");

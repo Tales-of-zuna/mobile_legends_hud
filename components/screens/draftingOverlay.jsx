@@ -87,7 +87,7 @@ const DraftingOverlay = (props) => {
                     })}
                   </div>
                   <div className="flex" style={{ height: `73px` }}>
-                    {props.data?.camp_list[1].player_list.map((player) => {
+                    {props.data?.camp_list[0].player_list.map((player) => {
                       return (
                         <div
                           key={player.ban_heroid}
