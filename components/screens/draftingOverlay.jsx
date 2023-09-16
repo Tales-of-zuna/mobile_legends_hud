@@ -67,7 +67,9 @@ const DraftingOverlay = (props) => {
                           style={{ width: `132px`, height: `190px` }}
                         >
                           <Image
-                            src={"/assets/teamLogo1.png"}
+                            src={`/heroes/${
+                              player.heroid ? player.heroid : "teamLogo1"
+                            }.png`}
                             alt=""
                             className="object-contain z-10"
                             fill
@@ -96,7 +98,9 @@ const DraftingOverlay = (props) => {
                         >
                           <Image
                             src={`/heroes/${
-                              player?.ban_heroid ? player.ban_heroid : ""
+                              player?.ban_heroid
+                                ? player.ban_heroid
+                                : "teamLogo1"
                             }.png`}
                             alt=""
                             className="object-fill"
@@ -160,7 +164,9 @@ const DraftingOverlay = (props) => {
                           style={{ width: `132px`, height: `190px` }}
                         >
                           <Image
-                            src={"/assets/player.png"}
+                            src={`/heroes/${
+                              player.heroid ? player.heroid : "teamLogo2"
+                            }.png`}
                             alt=""
                             className="object-contain z-10"
                             fill
@@ -189,7 +195,9 @@ const DraftingOverlay = (props) => {
                         >
                           <Image
                             src={`/heroes/${
-                              player?.ban_heroid ? player.ban_heroid : ""
+                              player?.ban_heroid
+                                ? player.ban_heroid
+                                : "teamLogo2"
                             }.png`}
                             alt=""
                             className="object-fill"

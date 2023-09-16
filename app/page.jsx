@@ -27,7 +27,6 @@ const Home = () => {
   const [teamScore, setTeamScore] = useState();
   const [banpickState, setBanpickState] = useState(false);
   const [playState, setPlayState] = useState(false);
-
   const bc = new BroadcastChannel("admin");
 
   const turtleTimer = () => {
