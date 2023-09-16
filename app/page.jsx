@@ -1,4 +1,6 @@
 "use client";
+
+import RealTimeVictoryDefeatRate from "@/components/popups/realTimeVictoryDefeatRate";
 import DraftingOverlay from "@/components/screens/draftingOverlay";
 import InGameOverlay from "@/components/screens/inGameOverlay";
 // import InGameStat from "@/components/screens/InGameStat";

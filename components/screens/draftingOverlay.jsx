@@ -1,55 +1,200 @@
 "use client";
-
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 const DraftingOverlay = (props) => {
-  console.log(props.data.camp_list);
+  const [countdown, setCountdown] = useState(48); // Initial countdown time in seconds
+  const [isActive, setIsActive] = useState(false);
+  const startTimer = () => {
+    setIsActive(true);
+  };
+
+  const resetTimer = () => {
+    setIsActive(false);
+    setCountdown(48);
+  };
+  useEffect(() => {
+    startTimer();
+    if (countdown === 0) {
+      resetTimer();
+    }
+  }, [countdown]);
+  useEffect(() => {
+    let interval;
+    if (isActive && countdown > 0) {
+      interval = setInterval(() => {
+        setCountdown(countdown - 1);
+      }, 1000);
+    }
+
+    return () => clearInterval(interval);
+  }, [isActive, countdown]);
+
   return (
     <div className="h-screen bg-green-500">
-      <div className="absolute z-40 top-0 w-full bg-green-500 h-4/6"></div>
       <div className="absolute bottom-0 w-full">
         <div className="relative">
-          <video autoPlay loop className="w-full" muted src="/assets/ban.mp4" />
-          <div className="absolute bottom-28 w-full px-11 z-10 flex justify-between">
-            <div className="space-y-2">
-              <div className="flex gap-4 text-white">
-                {props.data?.camp_list[0].player_list.map((player) => {
-                  return (
-                    <div className="relative h-56 w-32" key={player.name}>
-                      <Image
-                        alt=""
-                        fill
-                        className="object-contain"
-                        src={"/assets/player.png"}
-                      />{" "}
-                      <p className="w-full bottom-0 z-20 text-stone-800 font-bold absolute text-center">
-                        {player.name}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-              <div className="flex"></div>
+          <div className="absolute text-3xl font-bold text-black text bottom-0 flex py-4 justify-center w-full">
+            <div className="text-center ">
+              {/* <p className="text-4xl uppercase font-extrabold">Ban phase</p> */}
+              <p>{countdown}сек</p>
             </div>
-            <div className="space-y-2">
-              <div className="flex gap-4 text-white">
-                {props.data?.camp_list[1].player_list.map((player) => {
-                  return (
-                    <div className="relative h-56 w-32" key={player.name}>
-                      <Image
-                        alt=""
-                        fill
-                        className="object-contain "
-                        src={"/assets/player.png"}
-                      />{" "}
-                      <p className="w-full bottom-0 z-20 text-stone-800 font-bold absolute text-center">
-                        {player.name}
-                      </p>
-                    </div>
-                  );
-                })}
+          </div>
+          <video autoPlay loop className="w-full" muted src="/assets/ban.mp4" />
+          <div className="absolute  w-full bottom-0  z-10 flex justify-between">
+            <div
+              className=" w-1/2 "
+              style={{
+                height: `336px`,
+                paddingLeft: `38px`,
+                paddingTop: `27px`,
+              }}
+            >
+              <div className="h-full flex gap-9 ">
+                <div className="space-y-5 h-full w-full">
+                  <div className="flex">
+                    {props.data?.camp_list[0].player_list.map((player, idx) => {
+                      return (
+                        <div
+                          key={player.name}
+                          className="  relative "
+                          style={{ width: `132px`, height: `190px` }}
+                        >
+                          {/* <video
+                            className="absolute object-cover h-full w-full"
+                            autoPlay
+                            muted
+                            loop
+                            src="/assets/zed.mp4"
+                          /> */}
+                          <Image
+                            src={"/assets/player.png"}
+                            alt=""
+                            className="object-contain z-10"
+                            fill
+                          />
+                          <div
+                            className={` ${
+                              idx == 0 ? "bg-gradient-to-t from-red-800" : ""
+                            } h-full animate-pulse`}
+                          ></div>
+                          <div className="h-1/2 pb-1 text-slate-100 font-semibold bottom-0 z-20 w-full bg-gradient-to-t from-black absolute flex justify-center items-end">
+                            <p className="text-sm text-center">{player.name}</p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="flex" style={{ height: `73px` }}>
+                    {props.data?.camp_list[1].player_list.map((player) => {
+                      return (
+                        <div
+                          key={player.name}
+                          className="h-full grayscale relative"
+                          style={{ width: `132px` }}
+                        >
+                          <Image
+                            src={"/assets/roger.jpg"}
+                            alt=""
+                            className="object-fill"
+                            fill
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                <div className="w-full pt-2">
+                  <div
+                    className=" relative "
+                    style={{ height: `143px`, width: `115px` }}
+                  >
+                    <Image
+                      src={"/assets/teamLogo2.png"}
+                      alt=""
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="flex"></div>
+            </div>
+            <div
+              className=" w-1/2 "
+              style={{
+                height: `336px`,
+                paddingRight: `42px`,
+                paddingTop: `27px`,
+              }}
+            >
+              <div className="h-full flex gap-9 ">
+                <div className="w-full flex justify-end pt-2">
+                  <div
+                    className=" relative  "
+                    style={{ height: `143px`, width: `115px` }}
+                  >
+                    <Image
+                      src={"/assets/teamLogo1.png"}
+                      alt=""
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-5 h-full w-full">
+                  <div className="flex">
+                    {props.data?.camp_list[0].player_list.map((player, idx) => {
+                      return (
+                        <div
+                          key={player.name}
+                          className="  relative "
+                          style={{ width: `132px`, height: `190px` }}
+                        >
+                          {/* <video
+                            className="absolute object-cover h-full w-full"
+                            autoPlay
+                            muted
+                            loop
+                            src="/assets/zed.mp4"
+                          /> */}
+                          <Image
+                            src={"/assets/player.png"}
+                            alt=""
+                            className="object-contain z-10"
+                            fill
+                          />
+                          <div
+                            className={` ${
+                              idx == 0 ? "bg-gradient-to-t from-red-800" : ""
+                            } h-full animate-pulse`}
+                          ></div>
+                          <div className="h-1/2 pb-1 text-slate-100 font-semibold bottom-0 z-20 w-full bg-gradient-to-t from-black absolute flex justify-center items-end">
+                            <p className="text-sm text-center">{player.name}</p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="flex" style={{ height: `73px` }}>
+                    {props.data?.camp_list[1].player_list.map((player) => {
+                      return (
+                        <div
+                          key={player.name}
+                          className="h-full grayscale relative"
+                          style={{ width: `132px` }}
+                        >
+                          <Image
+                            src={"/assets/miya.jpg"}
+                            alt=""
+                            className="object-fill"
+                            fill
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
