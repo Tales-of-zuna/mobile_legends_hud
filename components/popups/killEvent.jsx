@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
-const turtleCam = (props) => {
+
+const killEventComp = (props) => {
     const [state, setState] = useState(false);
+
+    const [data, setData] = useState();
 
     useEffect(() => {
         setState(true);
@@ -19,4 +22,4 @@ const turtleCam = (props) => {
     );
 };
 
-export default turtleCam;
+export default killEventComp;
