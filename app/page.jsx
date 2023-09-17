@@ -14,7 +14,7 @@ import IndiPlayerStats from "@/components/popups/indiPlayerStats";
 import LordCam from "@/components/popups/lordCam";
 import TurtleCam from "@/components/popups/turtleCam";
 import TeamGoldDifference from "@/components/popups/teamGoldDifference";
-import RealTimeVictoryDefeatRate from "@/components/popups/realTimeVictoryDefeatRate";
+// import RealTimeVictoryDefeatRate from "@/components/popups/realTimeVictoryDefeatRate";
 import KillEventComp from "@/components/popups/killEvent";
 
 import React, { useEffect, useState } from "react";
