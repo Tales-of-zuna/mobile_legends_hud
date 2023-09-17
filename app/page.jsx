@@ -46,7 +46,7 @@ const Home = () => {
     };
 
     async function fetchWithTimeout(resource, options = {}) {
-        await new Promise((r) => setTimeout(r, 3000));
+        await new Promise((r) => setTimeout(r, 300));
         const { timeout = 8000 } = options;
 
         const controller = new AbortController();
@@ -74,7 +74,6 @@ const Home = () => {
                 { timeout: 2000 }
             );
             data = await response.json();
-
             console.log(data.data.state);
 
             if (data.data.state === "pick" || data.data.state === "ban") {
@@ -87,18 +86,19 @@ const Home = () => {
 
             if (data.data.state === "play") {
                 setData(data);
-                if (!banpickState) {
+                if (!playState) {
                     setType("InGameOverlay");
                 }
-                setBanpickState(true);
+                setPlayState(true);
             }
 
             if (data.data.state === "pause") {
             }
 
-            // if (data.message == "success") {
-            //     setData(data);
-            //     setType("draftingOverlay");
+            // if (data.data.state == "end") {
+            //     // setData(data);
+            //     setType(null);
+            //     setPopUpType(null);
             // }
 
             if (data.data.tortoise_left_time == 1 || data.data.tortoise_left_time == 2) {
@@ -164,15 +164,18 @@ const Home = () => {
 
                 console.log("data fom admin" + event.data.data.battleId);
                 setTeamScore(event.data.data);
-                let payload = { battleId: "836081816120432372", dataid: 0 };
+                let payload = { battleId: "610767724398158461", dataid: 0 };
                 getBattleDataRecursive(payload);
                 // setType(event.data.type);
-            } else if (event.data.type == "state-update-screen") {
+            }
+            if (event.data.type == "state-update-screen") {
                 console.log("event from broadcast :", event);
                 setType(event.data.data);
             } else if (event.data.type == "state-false-screen") {
                 setType(null);
-            } else if (event.data.type == "state-update-popup") {
+            }
+
+            if (event.data.type == "state-update-popup") {
                 setPopUpType(event.data.data);
             } else if (event.data.type == "state-false-popup") {
                 setPopUpType(null);
@@ -181,9 +184,9 @@ const Home = () => {
     }, []);
 
     const displayComponents = (name) => {
-        if (name === "draftingOverlay") {
+        if (name === "drafting overlay") {
             return <DraftingOverlay data={data.data} />;
-        } else if (name === "InGameOverlay") {
+        } else if (name === "in game overlay") {
             return <InGameOverlay data={data.data} />;
         }
 
@@ -203,19 +206,19 @@ const Home = () => {
 
     const showPopup = (popUptype) => {
         if (popUptype == "individual player stats") {
-            return <IndiPlayerStats />;
+            return <IndiPlayerStats data={data.data} />;
         } else if (popUptype == "in game stats head to head") {
-            return <HeadToHeadComponent />;
+            return <HeadToHeadComponent data={data.data} />;
         } else if (popUptype == "in game stat") {
-            return <InGameStat />;
+            return <InGameStat data={data.data} />;
         } else if (popUptype == "turtle cam") {
-            return <TurtleCam />;
+            return <TurtleCam data={data.data} />;
         } else if (popUptype == "lord cam") {
-            return <LordCam />;
+            return <LordCam data={data.data} />;
         } else if (popUptype == "real time victory defeat rate") {
-            return <RealTimeVictoryDefeatRate />;
+            return <RealTimeVictoryDefeatRate data={data.data} />;
         } else if (popUptype == "team gold difference") {
-            return <TeamGoldDifference />;
+            return <TeamGoldDifference data={data.data} />;
         } else if (
             popUptype == "first_blood" ||
             popUptype == "double_kill" ||
