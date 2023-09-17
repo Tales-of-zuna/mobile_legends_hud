@@ -1,5 +1,9 @@
 const InGameOverlay = () => {
-  return <div></div>;
+  return (
+    <div>
+      <p>PLAYING</p>
+    </div>
+  );
 };
 
 export default InGameOverlay;

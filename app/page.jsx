@@ -3,18 +3,15 @@
 import RealTimeVictoryDefeatRate from "@/components/popups/realTimeVictoryDefeatRate";
 import DraftingOverlay from "@/components/screens/draftingOverlay";
 import InGameOverlay from "@/components/screens/inGameOverlay";
-// import InGameStat from "@/components/screens/InGameStat";
 import ItemBuild from "@/components/screens/itemBuild";
 import PlayerStatsFull from "@/components/screens/playerStatsFull";
 import PlayerStatsLower from "@/components/screens/playerStatsLower";
-
 import HeadToHeadComponent from "@/components/popups/hdhComponent";
 import InGameStat from "@/components/popups/inGameStat";
 import IndiPlayerStats from "@/components/popups/indiPlayerStats";
 import LordCam from "@/components/popups/lordCam";
 import TurtleCam from "@/components/popups/turtleCam";
 import TeamGoldDifference from "@/components/popups/teamGoldDifference";
-// import RealTimeVictoryDefeatRate from "@/components/popups/realTimeVictoryDefeatRate";
 import KillEventComp from "@/components/popups/killEvent";
 
 import React, { useEffect, useState } from "react";
@@ -28,7 +25,8 @@ const Home = () => {
     const [lordState, setLordState] = useState(false);
     const [battleId, setBattleId] = useState();
     const [teamScore, setTeamScore] = useState();
-
+    const [banpickState, setBanpickState] = useState(false);
+    const [playState, setPlayState] = useState(false);
     const bc = new BroadcastChannel("admin");
 
     const turtleTimer = () => {
@@ -40,10 +38,10 @@ const Home = () => {
     };
 
     const lordTimer = () => {
-        setTurtleState(true);
+        setLordState(true);
 
         setTimeout(() => {
-            setTurtleState(false);
+            setLordState(false);
         }, 5000);
     };
 
@@ -64,65 +62,110 @@ const Home = () => {
     }
 
     async function getBattleDataRecursive(payload) {
-        console.log("payload :", payload);
-        // let payload = {
-        //     authkey: "6646f93ab8cf795f3f78a7ed73469cf7",
-        //     battleid: "",
-        //     dataid: 0,
-        // };
+        let data;
 
+        console.log("id" + payload?.battleId);
         try {
             const response = await fetchWithTimeout(
                 "http://esportsdata.mobilelegends.com:30260/battledata?authkey=6646f93ab8cf795f3f78a7ed73469cf7&battleid=" +
                     payload?.battleId +
-                    "&dataid=0",
+                    "&dataid=" +
+                    payload?.dataid,
                 { timeout: 2000 }
             );
-            const data = await response.json();
+            data = await response.json();
 
-            if (data.message == "success") {
+            console.log(data.data.state);
+
+            if (data.data.state === "pick" || data.data.state === "ban") {
                 setData(data);
-                setType("draftingOverlay");
+                if (!banpickState) {
+                    setType("draftingOverlay");
+                }
+                setBanpickState(true);
             }
 
-            if (data.data.tortoise_left_time == 1 || 2) {
+            if (data.data.state === "play") {
+                setData(data);
+                if (!banpickState) {
+                    setType("InGameOverlay");
+                }
+                setBanpickState(true);
+            }
+
+            if (data.data.state === "pause") {
+            }
+
+            // if (data.message == "success") {
+            //     setData(data);
+            //     setType("draftingOverlay");
+            // }
+
+            if (data.data.tortoise_left_time == 1 || data.data.tortoise_left_time == 2) {
                 if (!turtleState) {
+                    console.log("turtle");
                     setPopUpType("turtle cam");
                     turtleTimer();
                 }
             }
 
-            if (data.data.lord_left_time == 1 || 2) {
+            if (data.data.lord_left_time == 1 || data.data.lord_left_time == 2) {
                 if (!lordState) {
+                    console.log("lord turluuu");
+
                     setPopUpType("lord cam");
                     lordTimer();
                 }
             }
 
-            data.data.incre_event_list.map(async (item) => {
-                if (
-                    item.event_type == "kill_hero" &&
-                    item.extra_param
-                    // item.extra_param[0] == "first_blood"
-                ) {
-                    setPopUpType(item.extra_param[0]);
-                }
-            });
+            if (data.data.incre_event_list != null) {
+                data.data.incre_event_list.map((item) => {
+                    console.log(item);
+                    if (
+                        item.event_type == "kill_hero" &&
+                        item.extra_param != undefined
+                        // item.extra_param[0] == "first_blood"
+                    ) {
+                        setPopUpType(item.extra_param[0]);
+                    }
+                });
+            }
 
             // console.log(new Date());
             // console.log(data);
         } catch (error) {
             console.log(error.name);
         } finally {
-            getBattleDataRecursive(payload);
+            console.log("state: " + data.data.state);
+            console.log("dataid: " + data.dataid);
+            if (data.data.state != "end") {
+                let payloadInitial = {
+                    dataid: data.dataid,
+                    battleId: payload.battleId,
+                };
+                getBattleDataRecursive(payloadInitial);
+            }
         }
     }
 
     useEffect(() => {
         bc.onmessage = (event) => {
             if (event.data.type == "draftingOverlay") {
+                setData([]);
+                setType("");
+                setPopUpType(null);
+                setCommandType("");
+                setTurtleState(false);
+                setLordState(false);
+                setBattleId(null);
+                setTeamScore(null);
+                setBanpickState(false);
+                setPlayState(false);
+
+                console.log("data fom admin" + event.data.data.battleId);
                 setTeamScore(event.data.data);
-                getBattleDataRecursive(event.data.data);
+                let payload = { battleId: "836081816120432372", dataid: 0 };
+                getBattleDataRecursive(payload);
                 // setType(event.data.type);
             } else if (event.data.type == "state-update-screen") {
                 console.log("event from broadcast :", event);
@@ -136,20 +179,6 @@ const Home = () => {
             }
         };
     }, []);
-
-    const customStyles = {
-        overlay: {
-            backgroundColor: "rgba(255, 255, 255, 0)",
-        },
-        content: {
-            top: "auto",
-            left: "50%",
-            right: "auto",
-            bottom: "0%",
-            marginRight: "-50%",
-            transform: "translate(-50%, -50%)",
-        },
-    };
 
     const displayComponents = (name) => {
         if (name === "draftingOverlay") {
