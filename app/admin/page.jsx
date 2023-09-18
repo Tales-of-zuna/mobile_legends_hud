@@ -1,21 +1,32 @@
 "use client";
 import { Switch } from "@nextui-org/react";
 import { useEffect, useState } from "react";
-import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
+import { Tabs, Tab } from "@nextui-org/react";
+import { Select, SelectItem } from "@nextui-org/react";
 
 const Admin = () => {
     const [selected, setSelected] = useState();
     const [selectedPop, setSelectedPop] = useState();
     const [battleData, setBattleData] = useState([]);
-    // const [refereeId, setRefereeId] = useState(89852988);
+    const [loading, setLoading] = useState(false);
     const [refereeId, setRefereeId] = useState(595669932);
     const [battleList, setBattleList] = useState([]);
     const [battleId, setBattleId] = useState();
     const [activeTab, setActiveTab] = useState("1");
+    const [bestOf, setBestOf] = useState("");
     const [team1Score, setTeam1Score] = useState(0);
     const [team2Score, setTeam2Score] = useState(0);
 
     const bc = new BroadcastChannel("admin");
+
+    const bestOfData = [
+        {
+            name: "BO3",
+        },
+        {
+            name: "BO5",
+        },
+    ];
 
     const list = [
         {
@@ -72,6 +83,7 @@ const Admin = () => {
     ];
 
     const getBattleList = async () => {
+        setLoading(true);
         const id = await fetch(
             "http://esportsdata.mobilelegends.com:30260/battlelist/judge?authkey=6646f93ab8cf795f3f78a7ed73469cf7&judgeid=" +
                 refereeId
@@ -81,6 +93,7 @@ const Admin = () => {
         if (data.message == "success") {
             const arr = data.result.slice(0, 5);
             setBattleList(arr);
+            setLoading(false);
         } else window.alert(data.message);
     };
 
@@ -101,6 +114,7 @@ const Admin = () => {
         bc.postMessage({
             type: "draftingOverlay",
             data: {
+                bestOf: bestOf,
                 team1: team1Score,
                 team2: team2Score,
                 battleId: battleId,
@@ -219,7 +233,7 @@ const Admin = () => {
                             setActiveTab("1");
                         }}>
                         <div className="p-8 font-bold flex flex-row uppercase gap-4  w-full rounded-xl bg-slate-100 shadow-lg  transition-all transform duration-300">
-                            <div className=" text-xl">Enter Referee Id :</div>
+                            <div className=" text-xl text-center mt-4">Enter Referee Id :</div>
                             <input
                                 placeholder="Referee id"
                                 onChange={(e) => {
@@ -236,28 +250,47 @@ const Admin = () => {
                         </div>
                         <div className="p-8 font-bold  uppercase gap-4 flex flex-col w-full rounded-xl bg-slate-100 shadow-lg  transition-all transform duration-300">
                             <div className=" text-xl">Battle List</div>
-                            {battleList.map((item, idx) => {
-                                return (
-                                    <div key={idx}>
-                                        <button
-                                            onClick={() => {
-                                                getBattleData(BigInt(item.battleid));
-                                                setBattleId(BigInt(item.battleid));
-                                            }}
-                                            className="bg-blue-500 hover:bg-blue-700  text-slate-600 font-bold py-2 px-4 rounded">
-                                            <p className=" text-white">{item.reporttime}</p>
-                                            <p>{item.battleid}</p>
-                                        </button>
-                                    </div>
-                                );
-                            })}
+
+                            {!loading ? (
+                                battleList.map((item, idx) => {
+                                    return (
+                                        <div key={idx}>
+                                            <button
+                                                onClick={() => {
+                                                    getBattleData(BigInt(item.battleid));
+                                                    setBattleId(BigInt(item.battleid));
+                                                }}
+                                                className="bg-blue-500 hover:bg-blue-700  text-slate-600 font-bold py-2 px-4 rounded">
+                                                <p className=" text-white">{item.reporttime}</p>
+                                                <p>{item.battleid}</p>
+                                            </button>
+                                        </div>
+                                    );
+                                })
+                            ) : (
+                                <div className="text-slate-950">LOADING ....</div>
+                            )}
                         </div>
                     </Tab>
                     <Tab key="2" title="Set Score">
-                        <div className="p-8 font-bold flex flex-row uppercase gap-4  w-full rounded-xl bg-slate-100 shadow-lg  transition-all transform duration-300">
+                        <div className="p-8 font-bold flex flex-col uppercase gap-4  w-full rounded-xl bg-slate-100 shadow-lg  transition-all transform duration-300">
+                            <Select
+                                items={bestOfData}
+                                label="Best of"
+                                placeholder="Select Best Of"
+                                className="max-w-xs"
+                                onChange={(e) => {
+                                    setBestOf(e.target.value);
+                                }}>
+                                {(data, i) => (
+                                    <SelectItem className="text-slate-950" key={data.name}>
+                                        {data.name}
+                                    </SelectItem>
+                                )}
+                            </Select>
                             {battleData[0] ? (
-                                <>
-                                    <div className=" text-xl">
+                                <div className="flex flex-row gap-4">
+                                    <div className=" text-xl mt-2">
                                         {battleData[0]?.camp_list[0]?.team_name} :
                                     </div>
                                     <input
@@ -265,7 +298,7 @@ const Admin = () => {
                                         onChange={(e) => {
                                             setTeam1Score(e.target.value);
                                         }}></input>
-                                    <div className=" text-xl">
+                                    <div className=" text-xl mt-2">
                                         {battleData[0]?.camp_list[1]?.team_name} :
                                     </div>
                                     <input
@@ -280,7 +313,7 @@ const Admin = () => {
                                         }}>
                                         Enter Battle
                                     </button>
-                                </>
+                                </div>
                             ) : (
                                 <div></div>
                             )}

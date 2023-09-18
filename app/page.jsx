@@ -63,7 +63,6 @@ const Home = () => {
 
     async function getBattleDataRecursive(payload) {
         let data;
-
         console.log("id" + payload?.battleId);
         try {
             const response = await fetchWithTimeout(
@@ -87,7 +86,7 @@ const Home = () => {
             if (data.data.state === "play") {
                 setData(data);
                 if (!playState) {
-                    setType("InGameOverlay");
+                    setType("inGameOverlay");
                 }
                 setPlayState(true);
             }
@@ -130,9 +129,6 @@ const Home = () => {
                     }
                 });
             }
-
-            // console.log(new Date());
-            // console.log(data);
         } catch (error) {
             console.log(error.name);
         } finally {
@@ -161,10 +157,9 @@ const Home = () => {
                 setTeamScore(null);
                 setBanpickState(false);
                 setPlayState(false);
-
                 console.log("data fom admin" + event.data.data.battleId);
                 setTeamScore(event.data.data);
-                let payload = { battleId: "610767724398158461", dataid: 0 };
+                let payload = { battleId: "635291575341541352", dataid: 0 };
                 getBattleDataRecursive(payload);
                 // setType(event.data.type);
             }
@@ -184,9 +179,9 @@ const Home = () => {
     }, []);
 
     const displayComponents = (name) => {
-        if (name === "drafting overlay") {
+        if (name === "draftingOverlay") {
             return <DraftingOverlay data={data.data} />;
-        } else if (name === "in game overlay") {
+        } else if (name === "inGameOverlay") {
             return <InGameOverlay data={data.data} />;
         }
 
