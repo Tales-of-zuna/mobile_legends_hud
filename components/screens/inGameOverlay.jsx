@@ -2,6 +2,173 @@ import Image from "next/image";
 import { useEffect } from "react";
 
 const InGameOverlay = (props) => {
+  console.log("props :", props);
+  const team1Score = () => {
+    if (String(props.teamScore?.bestof) == "BO3") {
+      if (String(props.teamScore?.team1) == "0") {
+        return (
+          <div className="flex  gap-1">
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+          </div>
+        );
+      } else if (String(props.teamScore?.team1) == "1") {
+        return (
+          <div className="flex gap-1">
+            <div className="w-2 h-5 rounded-sm absolute z-30 bg-red-600"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+          </div>
+        );
+      }
+    } else if (String(props.teamScore?.bestof) == "BO5") {
+      if (String(props.teamScore?.team1) == "0") {
+        return (
+          <div className="flex gap-1">
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+          </div>
+        );
+      } else if (String(props.teamScore?.team1) == "1") {
+        return (
+          <div className="flex gap-1">
+            <div className="w-2 h-5 rounded-sm bg-red-600"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+          </div>
+        );
+      } else if (String(props.teamScore?.team1) == "2") {
+        return (
+          <div className="flex gap-1">
+            <div className="w-2 h-5 rounded-sm bg-red-600"></div>
+            <div className="w-2 h-5 rounded-sm bg-red-600"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+          </div>
+        );
+      }
+    } else if (String(props.teamScore?.bestof) == "BO5") {
+      if (String(props.teamScore?.team1) == "0") {
+        return (
+          <div className="flex gap-1">
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+          </div>
+        );
+      } else if (String(props.teamScore?.team1) == "1") {
+        return (
+          <div className="flex gap-1">
+            <div className="w-2 h-5 rounded-sm bg-red-600"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+          </div>
+        );
+      } else if (String(props.teamScore?.team1) == "2") {
+        return (
+          <div className="flex gap-1">
+            <div className="w-2 h-5 rounded-sm bg-red-600"></div>
+            <div className="w-2 h-5 rounded-sm bg-red-600"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+          </div>
+        );
+      } else if (String(props.teamScore?.team1) == "3") {
+        return (
+          <div className="flex gap-1">
+            <div className="w-2 h-5 rounded-sm bg-red-600"></div>
+            <div className="w-2 h-5 rounded-sm bg-red-600"></div>
+            <div className="w-2 h-5 rounded-sm bg-red-600"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+          </div>
+        );
+      }
+    }
+  };
+  const team2Score = () => {
+    if (String(props.teamScore?.bestof) == "BO3") {
+      if (String(props.teamScore?.team2) == "0") {
+        return (
+          <div className="flex gap-1">
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+          </div>
+        );
+      } else if (String(props.teamScore?.team2) == "1") {
+        return (
+          <div className="flex gap-1">
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-red-600"></div>
+          </div>
+        );
+      }
+    } else if (String(props.teamScore?.bestof) == "BO5") {
+      if (String(props.teamScore?.team2) == "0") {
+        return (
+          <div className="flex gap-1">
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+          </div>
+        );
+      } else if (String(props.teamScore?.team2) == "1") {
+        return (
+          <div className="flex gap-1">
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-red-600"></div>
+          </div>
+        );
+      } else if (String(props.teamScore?.team2) == "2") {
+        return (
+          <div className="flex gap-1">
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-red-600"></div>
+            <div className="w-2 h-5 rounded-sm bg-red-600"></div>
+          </div>
+        );
+      }
+    } else if (String(props.teamScore?.bestof) == "BO5") {
+      if (String(props.teamScore?.team2) == "0") {
+        return (
+          <div className="flex gap-1">
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+          </div>
+        );
+      } else if (String(props.teamScore?.team2) == "1") {
+        return (
+          <div className="flex gap-1">
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-red-600"></div>
+          </div>
+        );
+      } else if (String(props.teamScore?.team2) == "2") {
+        return (
+          <div className="flex gap-1">
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-red-600"></div>
+            <div className="w-2 h-5 rounded-sm bg-red-600"></div>
+          </div>
+        );
+      } else if (String(props.teamScore?.team2) == "3") {
+        return (
+          <div className="flex gap-1">
+            <div className="w-2 h-5 rounded-sm bg-black"></div>
+            <div className="w-2 h-5 rounded-sm bg-red-600"></div>
+            <div className="w-2 h-5 rounded-sm bg-red-600"></div>
+            <div className="w-2 h-5 rounded-sm bg-red-600"></div>
+          </div>
+        );
+      }
+    }
+  };
   return (
     <div className="w-screen h-screen flex items-center justify-center">
       <div className="w-full relative h-full">
@@ -53,12 +220,8 @@ const InGameOverlay = (props) => {
                 <p>
                   <p>{props.data?.camp_list[0].team_name}</p>
                 </p>
-                <div className="flex gap-1">
-                  <div className="w-2 h-5 rounded-sm bg-red-600"></div>
-                  <div className="w-2 h-5 rounded-sm bg-red-600"></div>
-                  <div className="w-2 h-5 rounded-sm bg-black"></div>
-                  <div className="w-2 h-5 rounded-sm bg-black"></div>
-                </div>
+                {props.teamScore.team1}
+                {team1Score()}
               </div>
             </div>
             <div
@@ -73,7 +236,9 @@ const InGameOverlay = (props) => {
             <div className="" style={{ width: `110px` }}>
               <div className="h-1/2 flex items-center justify-center">
                 {Math.floor(props.data?.game_time / 60)}:
-                {props.data?.game_time % 60}
+                {String(props.data?.game_time % 60).length == 1
+                  ? "0" + (props.data?.game_time % 60)
+                  : props.data?.game_time % 60}
               </div>
             </div>
 
@@ -112,12 +277,8 @@ const InGameOverlay = (props) => {
                 </div>
               </div>
               <div className="h-1/2 flex px-8 gap-4 items-center">
-                <div className="flex gap-1">
-                  <div className="w-2 h-5 rounded-sm bg-black"></div>
-                  <div className="w-2 h-5 rounded-sm bg-black"></div>
-                  <div className="w-2 h-5 rounded-sm bg-red-600"></div>
-                  <div className="w-2 h-5 rounded-sm bg-red-600"></div>
-                </div>
+                {/* {team2Score()} */}
+                {props.teamScore.team1}
                 <p>{props.data?.camp_list[1].team_name}</p>
               </div>
             </div>
