@@ -13,13 +13,14 @@ import LordCam from "@/components/popups/lordCam";
 import TurtleCam from "@/components/popups/turtleCam";
 import TeamGoldDifference from "@/components/popups/teamGoldDifference";
 import KillEventComp from "@/components/popups/killEvent";
+import PromoCodeComponent from "@/components/popups/promoCodeComponent";
 
 import React, { useEffect, useState } from "react";
 
 const Home = () => {
     const [data, setData] = useState([]);
     const [type, setType] = useState("");
-    const [popUpType, setPopUpType] = useState();
+    const [popUpType, setPopUpType] = useState("");
     const [commandType, setCommandType] = useState("");
     const [turtleState, setTurtleState] = useState(false);
     const [lordState, setLordState] = useState(false);
@@ -94,40 +95,50 @@ const Home = () => {
             if (data.data.state === "pause") {
             }
 
+            if (data.data.state == "end") {
+                setType("");
+                setPopUpType("");
+            }
+            if (data.data.state == "adjust" || data.data.state == "loading") {
+                setType("");
+                setPopUpType("");
+            }
+
             // if (data.data.state == "end") {
             //     // setData(data);
             //     setType(null);
             //     setPopUpType(null);
             // }
 
-            if (data.data.tortoise_left_time == 1 || data.data.tortoise_left_time == 2) {
-                if (!turtleState) {
-                    console.log("turtle");
-                    setPopUpType("turtle cam");
-                    turtleTimer();
-                }
-            }
+            // if (data.data.tortoise_left_time == 1 || data.data.tortoise_left_time == 2) {
+            //     if (!turtleState) {
+            //         console.log("turtle");
+            //         setPopUpType("turtle cam");
+            //         turtleTimer();
+            //     }
+            // }
 
-            if (data.data.lord_left_time == 1 || data.data.lord_left_time == 2) {
-                if (!lordState) {
-                    console.log("lord turluuu");
-                    setPopUpType("lord cam");
-                    lordTimer();
-                }
-            }
+            // if (data.data.lord_left_time == 1 || data.data.lord_left_time == 2) {
+            //     if (!lordState) {
+            //         console.log("lord turluuu");
+            //         setPopUpType("lord cam");
+            //         lordTimer();
+            //     }
+            // }
 
-            if (data.data.incre_event_list != null) {
-                data.data.incre_event_list.map((item) => {
-                    console.log(item);
-                    if (
-                        item.event_type == "kill_hero" &&
-                        item.extra_param != undefined
-                        // item.extra_param[0] == "first_blood"
-                    ) {
-                        setPopUpType(item.extra_param[0]);
-                    }
-                });
-            }
+            // if (data.data.incre_event_list != null) {
+            //     data.data.incre_event_list.map((item) => {
+            //         console.log(item);
+            //         if (
+            //             item.event_type == "kill_hero" &&
+            //             item.extra_param != undefined
+            //             // item.extra_param[0] == "first_blood"
+            //         ) {
+            //             console.log("EXTRA PARAM :", item.extra_param[0]);
+            //             setPopUpType(item.extra_param[0]);
+            //         }
+            //     });
+            // }
         } catch (error) {
             console.log(error.name);
         } finally {
@@ -148,7 +159,7 @@ const Home = () => {
             if (event.data.type == "draftingOverlay") {
                 setData([]);
                 setType("");
-                setPopUpType(null);
+                setPopUpType("");
                 setCommandType("");
                 setTurtleState(false);
                 setLordState(false);
@@ -156,9 +167,9 @@ const Home = () => {
                 setTeamScore(null);
                 setBanpickState(false);
                 setPlayState(false);
-                console.log("data fom admin" + event.data.scoreData.battleId);
-                setTeamScore(event.data.scoreData);
-                let payload = { battleId: "639909021667040536", dataid: 0 };
+                console.log("data fom admin" + event.data.data.battleId);
+                setTeamScore(event.data.data);
+                let payload = { battleId: "582280683792717159", dataid: 0 };
                 getBattleDataRecursive(payload);
                 // setType(event.data.type);
             }
@@ -199,28 +210,31 @@ const Home = () => {
     };
 
     const showPopup = (popUptype) => {
-        if (popUptype == "individual player stats") {
-            return <IndiPlayerStats data={data.data} />;
-        } else if (popUptype == "in game stats head to head") {
-            return <HeadToHeadComponent data={data.data} />;
-        } else if (popUptype == "in game stat") {
-            return <InGameStat data={data.data} />;
-        } else if (popUptype == "turtle cam") {
-            return <TurtleCam data={data.data} />;
-        } else if (popUptype == "lord cam") {
-            return <LordCam data={data.data} />;
-        } else if (popUptype == "real time victory defeat rate") {
-            return <RealTimeVictoryDefeatRate data={data.data} />;
-        } else if (popUptype == "team gold difference") {
-            return <TeamGoldDifference data={data.data} />;
-        } else if (
-            popUptype == "first_blood" ||
-            popUptype == "double_kill" ||
-            popUptype == "triple_kill" ||
-            popUptype == "quadra_kill" ||
-            popUptype == "penta_kill"
-        ) {
-            return <KillEventComp data={popUptype} />;
+        // if (popUptype == "individual player stats") {
+        //     return <IndiPlayerStats data={data.data} />;
+        // } else if (popUptype == "in game stats head to head") {
+        //     return <HeadToHeadComponent data={data.data} />;
+        // } else if (popUptype == "in game stat") {
+        //     return <InGameStat data={data.data} />;
+        // } else if (popUptype == "turtle cam") {
+        //     return <TurtleCam data={data.data} />;
+        // } else if (popUptype == "lord cam") {
+        //     return <LordCam data={data.data} />;
+        // } else if (popUptype == "real time victory defeat rate") {
+        //     return <RealTimeVictoryDefeatRate data={data.data} />;
+        // } else if (popUptype == "team gold difference") {
+        //     return <TeamGoldDifference data={data.data} />;
+        // } else if (
+        //     popUptype == "first_blood" ||
+        //     popUptype == "double_kill" ||
+        //     popUptype == "triple_kill" ||
+        //     popUptype == "quadra_kill" ||
+        //     popUptype == "penta_kill"
+        // ) {
+        //     return <KillEventComp data={popUptype} />;
+        // }
+        if (popUpType == "promo code") {
+            return <PromoCodeComponent />;
         }
     };
     return (
