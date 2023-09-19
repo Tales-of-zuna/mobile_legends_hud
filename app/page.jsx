@@ -111,7 +111,6 @@ const Home = () => {
             if (data.data.lord_left_time == 1 || data.data.lord_left_time == 2) {
                 if (!lordState) {
                     console.log("lord turluuu");
-
                     setPopUpType("lord cam");
                     lordTimer();
                 }
@@ -132,8 +131,8 @@ const Home = () => {
         } catch (error) {
             console.log(error.name);
         } finally {
-            console.log("state: " + data.data.state);
-            console.log("dataid: " + data.dataid);
+            // console.log("state: " + data.data.state);
+            // console.log("dataid: " + data.dataid);
             if (data.data.state != "end") {
                 let payloadInitial = {
                     dataid: data.dataid,
@@ -182,7 +181,7 @@ const Home = () => {
         if (name === "draftingOverlay") {
             return <DraftingOverlay data={data.data} />;
         } else if (name === "inGameOverlay") {
-            return <InGameOverlay data={{ ...data, teamScore }} />;
+            return <InGameOverlay teamScore={teamScore} data={data.data} />;
         }
 
         // else if (name === "RealTimeVictoryDefeatRate") {
