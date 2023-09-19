@@ -16,6 +16,8 @@ const Admin = () => {
     const [bestOf, setBestOf] = useState("");
     const [team1Score, setTeam1Score] = useState(0);
     const [team2Score, setTeam2Score] = useState(0);
+    const [teamNames, setTeamNames] = useState("");
+    const [team2Name, setTeam2Name] = useState("");
 
     const bc = new BroadcastChannel("admin");
 
@@ -38,12 +40,12 @@ const Admin = () => {
         {
             name: "team head to head",
         },
-        {
-            name: "drafting overlay",
-        },
-        {
-            name: "in game overlay",
-        },
+        // {
+        //     name: "drafting overlay",
+        // },
+        // {
+        //     name: "in game overlay",
+        // },
         {
             name: "item build",
         },
@@ -68,12 +70,12 @@ const Admin = () => {
         {
             name: "in game stat",
         },
-        {
-            name: "turtle cam",
-        },
-        {
-            name: "lord cam",
-        },
+        // {
+        //     name: "turtle cam",
+        // },
+        // {
+        //     name: "lord cam",
+        // },
         {
             name: "real time victory defeat rate",
         },
@@ -93,6 +95,7 @@ const Admin = () => {
         if (data.message == "success") {
             const arr = data.result.slice(0, 5);
             setBattleList(arr);
+
             setLoading(false);
         } else window.alert(data.message);
     };
@@ -110,10 +113,24 @@ const Admin = () => {
             setActiveTab("2");
         } else window.alert(data.message);
     };
+
+    const getBattleTeamNames = async (battleId) => {
+        console.log("battle id :", battleId);
+        const id = await fetch(
+            "http://esportsdata.mobilelegends.com:30260/battledata?authkey=6646f93ab8cf795f3f78a7ed73469cf7&battleid=" +
+                battleId +
+                "&dataid=0"
+        );
+        const data = await id.json();
+        if (data.message == "success") {
+            return `${data.data.camp_list[0]?.team_name} vs ${data.data.camp_list[0]?.team_name}`;
+        }
+    };
+
     const enterBattle = async () => {
         bc.postMessage({
             type: "draftingOverlay",
-            data: {
+            scoreData: {
                 bestOf: bestOf,
                 team1: team1Score,
                 team2: team2Score,
@@ -262,7 +279,12 @@ const Admin = () => {
                                                 }}
                                                 className="bg-blue-500 hover:bg-blue-700  text-slate-600 font-bold py-2 px-4 rounded">
                                                 <p className=" text-white">{item.reporttime}</p>
-                                                <p>{item.battleid}</p>
+                                                <p>
+                                                    {
+                                                        item.battleid
+                                                        // getBattleTeamNames(item.battleid)
+                                                    }
+                                                </p>
                                             </button>
                                         </div>
                                     );

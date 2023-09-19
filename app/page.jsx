@@ -157,9 +157,9 @@ const Home = () => {
                 setTeamScore(null);
                 setBanpickState(false);
                 setPlayState(false);
-                console.log("data fom admin" + event.data.data.battleId);
-                setTeamScore(event.data.data);
-                let payload = { battleId: "635291575341541352", dataid: 0 };
+                console.log("data fom admin" + event.data.scoreData.battleId);
+                setTeamScore(event.data.scoreData);
+                let payload = { battleId: "639909021667040536", dataid: 0 };
                 getBattleDataRecursive(payload);
                 // setType(event.data.type);
             }
@@ -182,7 +182,7 @@ const Home = () => {
         if (name === "draftingOverlay") {
             return <DraftingOverlay data={data.data} />;
         } else if (name === "inGameOverlay") {
-            return <InGameOverlay data={data.data} />;
+            return <InGameOverlay data={{ ...data, teamScore }} />;
         }
 
         // else if (name === "RealTimeVictoryDefeatRate") {
