@@ -10,6 +10,7 @@ const Admin = () => {
     const [battleData, setBattleData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [refereeId, setRefereeId] = useState(595669932);
+    const [promoCode, setPromoCode] = useState("");
     const [battleList, setBattleList] = useState([]);
     const [battleId, setBattleId] = useState();
     const [activeTab, setActiveTab] = useState("1");
@@ -69,7 +70,7 @@ const Admin = () => {
             name: "in game stat",
         },
         {
-            name: "turtle cam",
+            name: "promo code",
         },
         {
             name: "lord cam",
@@ -111,16 +112,18 @@ const Admin = () => {
         } else window.alert(data.message);
     };
     const enterBattle = async () => {
-        bc.postMessage({
-            type: "draftingOverlay",
-            data: {
-                bestOf: bestOf,
-                team1: team1Score,
-                team2: team2Score,
-                battleId: battleId,
-            },
-        });
-        setActiveTab("3");
+        if (bestOf && team1Score && team2Score && battleId) {
+            bc.postMessage({
+                type: "draftingOverlay",
+                data: {
+                    bestOf: bestOf,
+                    team1: team1Score,
+                    team2: team2Score,
+                    battleId: battleId,
+                },
+            });
+            setActiveTab("3");
+        } else window.alert("Оноо болон харьцаа оруулна уу !");
     };
 
     useEffect(() => {}, []);
@@ -190,9 +193,18 @@ const Admin = () => {
                             // setSelected(null);
                             setSelectedPop(null);
                         } else {
-                            bc.postMessage({ type: "state-update-popup", data: name });
-                            // setSelected(idx);
-                            setSelectedPop(idx);
+                            if (name == "promo_code") {
+                                bc.postMessage({
+                                    type: "state-update-popup",
+                                    data: name,
+                                    code: promoCode,
+                                });
+                                setSelectedPop(idx);
+                            } else {
+                                bc.postMessage({ type: "state-update-popup", data: name });
+                                // setSelected(idx);
+                                setSelectedPop(idx);
+                            }
                         }
                     }}
                     startContent={
@@ -329,7 +341,17 @@ const Admin = () => {
                                     })}
                                 </div>
                                 <div className="p-8 font-bold  uppercase gap-4 grid grid-cols-4 w-full rounded-xl bg-white shadow-lg  transition-all transform duration-300">
-                                    <div className="col-span-4 text-xl">Popups</div>
+                                    <div className="col-span-1 text-xl">Popups</div>
+                                    <div className=" col-span-3 flex justify-end text-xl text-center mt-4">
+                                        Enter Promo Code :
+                                        <input
+                                            placeholder="Promo code"
+                                            onChange={(e) => {
+                                                setPromoCode(e.target.value);
+                                                console.log("id :", refereeId);
+                                            }}></input>
+                                    </div>
+
                                     {popupList.map((item, idx) => {
                                         return (
                                             <div key={idx}>{popupSwitching(item.name, idx)}</div>
