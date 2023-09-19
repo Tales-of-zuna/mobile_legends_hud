@@ -31,7 +31,6 @@ const Home = () => {
 
   const turtleTimer = () => {
     setTurtleState(true);
-
     setTimeout(() => {
       setTurtleState(false);
     }, 5000);
@@ -57,7 +56,6 @@ const Home = () => {
       signal: controller.signal,
     });
     clearTimeout(id);
-
     return response;
   }
 
@@ -136,7 +134,7 @@ const Home = () => {
     } finally {
       // console.log("state: " + data.data.state);
       // console.log("dataid: " + data.dataid);
-      if (data.data.state != "end") {
+      if (data?.data?.state != "end") {
         let payloadInitial = {
           dataid: data.dataid,
           battleId: payload.battleId,
@@ -161,7 +159,7 @@ const Home = () => {
         setPlayState(false);
         // console.log("data fom admin" + event.data.scoreData.battleId);
         setTeamScore(event.data.scoreData);
-        let payload = { battleId: "580352260656675359", dataid: 0 };
+        let payload = { battleId: "433600190294352445", dataid: 0 };
         getBattleDataRecursive(payload);
         // setType(event.data.type);
       }
@@ -229,7 +227,7 @@ const Home = () => {
   return (
     <div className="h-screen bg-green-500">
       <div className="h-full">
-        <DraftingOverlay />
+        {/* <DraftingOverlay /> */}
         {displayComponents(type)}
         {showPopup(popUpType)}
       </div>
