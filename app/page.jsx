@@ -61,19 +61,19 @@ const Home = () => {
     return response;
   }
 
-    async function getBattleDataRecursive(payload) {
-        let data;
-        console.log("id" + payload?.battleId);
-        try {
-            const response = await fetchWithTimeout(
-                "http://esportsdata.mobilelegends.com:30260/battledata?authkey=6646f93ab8cf795f3f78a7ed73469cf7&battleid=" +
-                    payload?.battleId +
-                    "&dataid=" +
-                    payload?.dataid,
-                { timeout: 2000 }
-            );
-            data = await response.json();
-            console.log(data.data.state);
+  async function getBattleDataRecursive(payload) {
+    let data;
+    console.log("id" + payload?.battleId);
+    try {
+      const response = await fetchWithTimeout(
+        "http://esportsdata.mobilelegends.com:30260/battledata?authkey=6646f93ab8cf795f3f78a7ed73469cf7&battleid=" +
+          payload?.battleId +
+          "&dataid=" +
+          payload?.dataid,
+        { timeout: 2000 }
+      );
+      data = await response.json();
+      console.log(data.data.state);
 
       if (data.data.state === "pick" || data.data.state === "ban") {
         setData(data);
@@ -83,13 +83,13 @@ const Home = () => {
         setBanpickState(true);
       }
 
-            if (data.data.state === "play") {
-                setData(data);
-                if (!playState) {
-                    setType("inGameOverlay");
-                }
-                setPlayState(true);
-            }
+      if (data.data.state === "play") {
+        setData(data);
+        if (!playState) {
+          setType("inGameOverlay");
+        }
+        setPlayState(true);
+      }
 
       if (data.data.state === "pause") {
       }
@@ -114,64 +114,63 @@ const Home = () => {
       if (data.data.lord_left_time == 1 || data.data.lord_left_time == 2) {
         if (!lordState) {
           console.log("lord turluuu");
-
           setPopUpType("lord cam");
           lordTimer();
         }
       }
 
-            if (data.data.incre_event_list != null) {
-                data.data.incre_event_list.map((item) => {
-                    console.log(item);
-                    if (
-                        item.event_type == "kill_hero" &&
-                        item.extra_param != undefined
-                        // item.extra_param[0] == "first_blood"
-                    ) {
-                        setPopUpType(item.extra_param[0]);
-                    }
-                });
-            }
-        } catch (error) {
-            console.log(error.name);
-        } finally {
-            console.log("state: " + data.data.state);
-            console.log("dataid: " + data.dataid);
-            if (data.data.state != "end") {
-                let payloadInitial = {
-                    dataid: data.dataid,
-                    battleId: payload.battleId,
-                };
-                getBattleDataRecursive(payloadInitial);
-            }
-        }
+      if (data.data.incre_event_list != null) {
+        data.data.incre_event_list.map((item) => {
+          console.log(item);
+          if (
+            item.event_type == "kill_hero" &&
+            item.extra_param != undefined
+            // item.extra_param[0] == "first_blood"
+          ) {
+            setPopUpType(item.extra_param[0]);
+          }
+        });
+      }
+    } catch (error) {
+      console.log(error.name);
+    } finally {
+      // console.log("state: " + data.data.state);
+      // console.log("dataid: " + data.dataid);
+      if (data.data.state != "end") {
+        let payloadInitial = {
+          dataid: data.dataid,
+          battleId: payload.battleId,
+        };
+        getBattleDataRecursive(payloadInitial);
+      }
     }
+  }
 
-    useEffect(() => {
-        bc.onmessage = (event) => {
-            if (event.data.type == "draftingOverlay") {
-                setData([]);
-                setType("");
-                setPopUpType(null);
-                setCommandType("");
-                setTurtleState(false);
-                setLordState(false);
-                setBattleId(null);
-                setTeamScore(null);
-                setBanpickState(false);
-                setPlayState(false);
-                console.log("data fom admin" + event.data.data.battleId);
-                setTeamScore(event.data.data);
-                let payload = { battleId: "635291575341541352", dataid: 0 };
-                getBattleDataRecursive(payload);
-                // setType(event.data.type);
-            }
-            if (event.data.type == "state-update-screen") {
-                console.log("event from broadcast :", event);
-                setType(event.data.data);
-            } else if (event.data.type == "state-false-screen") {
-                setType(null);
-            }
+  useEffect(() => {
+    bc.onmessage = (event) => {
+      if (event.data.type == "draftingOverlay") {
+        setData([]);
+        setType("");
+        setPopUpType(null);
+        setCommandType("");
+        setTurtleState(false);
+        setLordState(false);
+        setBattleId(null);
+        setTeamScore(null);
+        setBanpickState(false);
+        setPlayState(false);
+        console.log("data fom admin" + event.data.data.battleId);
+        setTeamScore(event.data.data);
+        let payload = { battleId: "649077574253218958", dataid: 0 };
+        getBattleDataRecursive(payload);
+        // setType(event.data.type);
+      }
+      if (event.data.type == "state-update-screen") {
+        console.log("event from broadcast :", event);
+        setType(event.data.data);
+      } else if (event.data.type == "state-false-screen") {
+        setType(null);
+      }
 
       if (event.data.type == "state-update-popup") {
         setPopUpType(event.data.data);
@@ -181,12 +180,12 @@ const Home = () => {
     };
   }, []);
 
-    const displayComponents = (name) => {
-        if (name === "draftingOverlay") {
-            return <DraftingOverlay data={data.data} />;
-        } else if (name === "inGameOverlay") {
-            return <InGameOverlay data={data.data} />;
-        }
+  const displayComponents = (name) => {
+    if (name === "draftingOverlay") {
+      return <DraftingOverlay data={data.data} />;
+    } else if (name === "inGameOverlay") {
+      return <InGameOverlay teamScore={teamScore} data={data.data} />;
+    }
 
     // else if (name === "RealTimeVictoryDefeatRate") {
     //   return <RealTimeVictoryDefeatRate data={data.data} />;

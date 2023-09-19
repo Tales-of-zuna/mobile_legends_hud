@@ -4,7 +4,7 @@ import { useEffect } from "react";
 const InGameOverlay = (props) => {
   console.log("props :", props);
   const team1Score = () => {
-    if (String(props.teamScore?.bestof) == "BO3") {
+    if (String(props.teamScore?.bestOf) == "BO3") {
       if (String(props.teamScore?.team1) == "0") {
         return (
           <div className="flex  gap-1">
@@ -20,7 +20,7 @@ const InGameOverlay = (props) => {
           </div>
         );
       }
-    } else if (String(props.teamScore?.bestof) == "BO5") {
+    } else if (String(props.teamScore?.bestOf) == "BO5") {
       if (String(props.teamScore?.team1) == "0") {
         return (
           <div className="flex gap-1">
@@ -46,7 +46,7 @@ const InGameOverlay = (props) => {
           </div>
         );
       }
-    } else if (String(props.teamScore?.bestof) == "BO5") {
+    } else if (String(props.teamScore?.bestOf) == "BO5") {
       if (String(props.teamScore?.team1) == "0") {
         return (
           <div className="flex gap-1">
@@ -87,7 +87,7 @@ const InGameOverlay = (props) => {
     }
   };
   const team2Score = () => {
-    if (String(props.teamScore?.bestof) == "BO3") {
+    if (String(props.teamScore?.bestOf) == "BO3") {
       if (String(props.teamScore?.team2) == "0") {
         return (
           <div className="flex gap-1">
@@ -103,7 +103,7 @@ const InGameOverlay = (props) => {
           </div>
         );
       }
-    } else if (String(props.teamScore?.bestof) == "BO5") {
+    } else if (String(props.teamScore?.bestOf) == "BO5") {
       if (String(props.teamScore?.team2) == "0") {
         return (
           <div className="flex gap-1">
@@ -129,7 +129,7 @@ const InGameOverlay = (props) => {
           </div>
         );
       }
-    } else if (String(props.teamScore?.bestof) == "BO5") {
+    } else if (String(props.teamScore?.bestOf) == "BO5") {
       if (String(props.teamScore?.team2) == "0") {
         return (
           <div className="flex gap-1">
@@ -196,6 +196,7 @@ const InGameOverlay = (props) => {
                   style={{ width: `91px` }}
                 >
                   {props.data?.camp_list[0].kill_tortoise}
+                  {String(props.teamScore?.team2) == "3"}
                 </div>
                 <div
                   className="h-full pl-8 flex items-center "
@@ -210,7 +211,7 @@ const InGameOverlay = (props) => {
                   {props.data?.camp_list[0].kill_tower}
                 </div>
                 <div
-                  className="h-full pl-10 text-xl flex items-center "
+                  className="h-full pl-10 text-2xl flex items-center "
                   style={{ width: `117px` }}
                 >
                   {props.data?.camp_list[0].total_money}
@@ -220,12 +221,11 @@ const InGameOverlay = (props) => {
                 <p>
                   <p>{props.data?.camp_list[0].team_name}</p>
                 </p>
-                {props.teamScore.team1}
                 {team1Score()}
               </div>
             </div>
             <div
-              className="h-full flex justify-center pr-4 items-center text-4xl "
+              className="h-1/2 pt-4 pr-2 flex justify-center  items-center text-4xl "
               style={{ width: `65px` }}
             >
               <p>{props.data?.camp_list[0].score}</p>
@@ -244,7 +244,7 @@ const InGameOverlay = (props) => {
 
             {/* team 2 -------------------------------------------------------------------------- */}
             <div
-              className="h-full flex justify-center pl-4 items-center text-4xl "
+              className="h-1/2 flex pt-4 pl-2 justify-center items-center text-4xl "
               style={{ width: `65px` }}
             >
               <p>{props.data?.camp_list[1].score}</p>
@@ -252,7 +252,7 @@ const InGameOverlay = (props) => {
             <div className="h-full relative " style={{ width: `430px` }}>
               <div className="h-1/2 text-3xl flex items-center px-6">
                 <div
-                  className="h-full pl-11 text-xl flex items-center "
+                  className="h-full pl-11 text-2xl flex items-center "
                   style={{ width: `146px` }}
                 >
                   {props.data?.camp_list[1].total_money}
@@ -277,8 +277,7 @@ const InGameOverlay = (props) => {
                 </div>
               </div>
               <div className="h-1/2 flex px-8 gap-4 items-center">
-                {/* {team2Score()} */}
-                {props.teamScore.team1}
+                {team2Score()}
                 <p>{props.data?.camp_list[1].team_name}</p>
               </div>
             </div>

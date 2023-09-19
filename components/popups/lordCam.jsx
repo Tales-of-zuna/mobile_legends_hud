@@ -12,7 +12,7 @@ const LordCam = () => {
     clearTimeout();
   }, []);
   return (
-    <div className="h-screen w-screen absolute z-10">
+    <div className="h-screen w-screen top-0 left-0 absolute z-10">
       <div className="absolute w-full bottom-0 h-1/3 flex justify-center overflow-y-hidden">
         <div
           className={`${
