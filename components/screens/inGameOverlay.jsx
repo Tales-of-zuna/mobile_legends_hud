@@ -15,7 +15,7 @@ const InGameOverlay = (props) => {
             } else if (String(props.teamScore?.team1) == "1") {
                 return (
                     <div className="flex gap-1">
-                        <div className="w-2 h-5 rounded-sm  bg-red-600"></div>
+                        <div className="w-2 h-5 rounded-sm absolute z-30 bg-red-600"></div>
                         <div className="w-2 h-5 rounded-sm bg-black"></div>
                     </div>
                 );
@@ -170,7 +170,13 @@ const InGameOverlay = (props) => {
         }
     };
     return (
-        <div className="w-screen h-screen flex items-center justify-center">
+        <div className="w-screen h-screen montser flex items-center justify-center">
+            <style jsx>{`
+                @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
+                .montser {
+                    font-family: "Montserrat", sans-serif;
+                }
+            `}</style>
             <div className="w-full relative h-full">
                 <video
                     autoPlay

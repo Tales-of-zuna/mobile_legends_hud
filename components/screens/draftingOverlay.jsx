@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 const DraftingOverlay = (props) => {
   const [countdown, setCountdown] = useState(48);
   const [isActive, setIsActive] = useState(false);
+  const [right, setRight] = useState(false);
+  const [left, setLeft] = useState(false);
   const startTimer = () => {
     setIsActive(true);
   };
@@ -13,8 +15,30 @@ const DraftingOverlay = (props) => {
     setIsActive(false);
     setCountdown(48);
   };
+
+  const checkSides = () => {
+    props.data?.camp_list[0].player_list.map((player) => {
+      if (player.banning || player.picking) {
+        setLeft(true);
+        setRight(false);
+      } else {
+        setLeft(false);
+        setRight(false);
+      }
+    });
+    props.data?.camp_list[1].player_list.map((player) => {
+      if (player.banning || player.picking) {
+        setRight(true);
+        setLeft(false);
+      } else {
+        setLeft(false);
+        setRight(false);
+      }
+    });
+  };
   useEffect(() => {
     startTimer();
+    checkSides();
     if (countdown === 0) {
       resetTimer();
     }
@@ -30,18 +54,53 @@ const DraftingOverlay = (props) => {
   }, [isActive, countdown]);
 
   return (
-    <div className="h-screen bg-green-500">
-      {/* <div
-        className="bg-green-500 z-10 w-full absolute top-0"
-        style={{ height: `780px` }}
-      ></div> */}
-      <div className="absolute bottom-0 w-full">
+    <div className="h-screen  bg-green-500">
+      <div className="absolute montser bottom-0 w-full">
+        <style jsx>{`
+          @import url("https://fonts.googleapis.com/css2?family=Unbounded:wght@800&display=swap");
+          .montser {
+            font-family: "Unbounded", sans-serif;
+          }
+          @keyframes bounce {
+            0%,
+            100% {
+              transform: translateX(-25%);
+              animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+            }
+            50% {
+              transform: none;
+              animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+            }
+          }
+          .animate-bounce {
+            animation: bounce 1s infinite;
+          }
+        `}</style>
         <div className="relative">
           <div className="absolute text-3xl font-bold text-black text bottom-0 flex py-4 justify-center w-full">
-            <div className="text-center ">
-              {/* <p className="text-4xl uppercase font-extrabold">Ban phase</p> */}
-              <p>{countdown}сек</p>
+            <svg
+              className={`${
+                left ? "opacity-100" : "opacity-0"
+              } h-10 mr-4 animate-bounce`}
+              viewBox="0 0 1000 1000"
+            >
+              <polygon points="460.58,688.06 383.48,765.17 118.95,500.64 384.14,235.45 461.25,312.57 273.17,500.65 " />
+              <polygon points="661.59,688.06 584.48,765.17 319.96,500.64 585.15,235.45 662.26,312.57 474.18,500.65 " />
+            </svg>
+            <div className="text-center">
+              <p className="text-4xl uppercase font-extrabold">Ban phase</p>
+              <p>{countdown}</p>
             </div>
+
+            <svg
+              className={`${
+                right ? "opacity-100" : "opacity-0"
+              } h-10 ml-4 animate-bounce`}
+              viewBox="0 0 1000 1000"
+            >
+              <polygon points="508.04,312.56 585.15,235.45 849.67,499.98 584.48,765.17 507.37,688.05 695.45,499.97 " />
+              <polygon points="307.03,312.56 384.14,235.45 648.67,499.98 383.48,765.17 306.36,688.05 494.44,499.97 " />
+            </svg>
           </div>
           <video autoPlay loop className="w-full" muted src="/assets/ban.mp4" />
           <div className="absolute  w-full bottom-0  z-10 flex justify-between">
@@ -203,9 +262,6 @@ const DraftingOverlay = (props) => {
                             className="object-fill"
                             fill
                           />
-                          {/* <p className="absolute text-xl text-black">
-                            {player.ban_heroid}
-                          </p> */}
                         </div>
                       );
                     })}
