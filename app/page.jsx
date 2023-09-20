@@ -110,35 +110,35 @@ const Home = () => {
             //     setPopUpType(null);
             // }
 
-            // if (data.data.tortoise_left_time == 1 || data.data.tortoise_left_time == 2) {
-            //     if (!turtleState) {
-            //         console.log("turtle");
-            //         setPopUpType("turtle cam");
-            //         turtleTimer();
-            //     }
-            // }
+            if (data.data.tortoise_left_time == 1 || data.data.tortoise_left_time == 2) {
+                if (!turtleState) {
+                    console.log("turtle");
+                    setPopUpType("turtle cam");
+                    turtleTimer();
+                }
+            }
 
-            // if (data.data.lord_left_time == 1 || data.data.lord_left_time == 2) {
-            //     if (!lordState) {
-            //         console.log("lord turluuu");
-            //         setPopUpType("lord cam");
-            //         lordTimer();
-            //     }
-            // }
+            if (data.data.lord_left_time == 1 || data.data.lord_left_time == 2) {
+                if (!lordState) {
+                    console.log("lord turluuu");
+                    setPopUpType("lord cam");
+                    lordTimer();
+                }
+            }
 
-            // if (data.data.incre_event_list != null) {
-            //     data.data.incre_event_list.map((item) => {
-            //         console.log(item);
-            //         if (
-            //             item.event_type == "kill_hero" &&
-            //             item.extra_param != undefined
-            //             // item.extra_param[0] == "first_blood"
-            //         ) {
-            //             console.log("EXTRA PARAM :", item.extra_param[0]);
-            //             setPopUpType(item.extra_param[0]);
-            //         }
-            //     });
-            // }
+            if (data.data.incre_event_list != null) {
+                data.data.incre_event_list.map((item) => {
+                    console.log(item);
+                    if (
+                        item.event_type == "kill_hero" &&
+                        item.extra_param != undefined
+                        // item.extra_param[0] == "first_blood"
+                    ) {
+                        console.log("EXTRA PARAM :", item.extra_param[0]);
+                        setPopUpType(item.extra_param[0]);
+                    }
+                });
+            }
         } catch (error) {
             console.log(error);
         } finally {
@@ -169,7 +169,7 @@ const Home = () => {
                 setPlayState(false);
                 console.log("data fom admin" + event.data.data.battleId);
                 setTeamScore(event.data.data);
-                let payload = { battleId: "605454622220002044", dataid: 0 };
+                let payload = { battleId: event.data.data.battleId, dataid: 0 };
                 getBattleDataRecursive(payload);
                 // setType(event.data.type);
             }
@@ -210,24 +210,26 @@ const Home = () => {
     };
 
     const showPopup = (popUptype) => {
+        if (popUpType == "promo code") {
+            return <PromoCodeComponent promoCode={""} />;
+        }
         // if (popUptype == "individual player stats") {
         //     return <IndiPlayerStats data={data.data} />;
         // } else if (popUptype == "in game stats head to head") {
         //     return <HeadToHeadComponent data={data.data} />;
         // } else if (popUptype == "in game stat") {
         //     return <InGameStat data={data.data} />;
-        // } else if (popUptype == "turtle cam") {
-        //     return <TurtleCam data={data.data} />;
-        // } else if (popUptype == "lord cam") {
-        //     return <LordCam data={data.data} />;
-        // } else if (popUptype == "real time victory defeat rate") {
+        // }
+        else if (popUptype == "turtle cam") {
+            return <TurtleCam data={data.data} />;
+        } else if (popUptype == "lord cam") {
+            return <LordCam data={data.data} />;
+        }
+        // else if (popUptype == "real time victory defeat rate") {
         //     return <RealTimeVictoryDefeatRate data={data.data} />;
         // } else if (popUptype == "team gold difference") {
         //     return <TeamGoldDifference data={data.data} />;
-
-        if (popUpType == "promo code") {
-            return <PromoCodeComponent />;
-        } else if (
+        else if (
             popUptype == "first_blood" ||
             popUptype == "double_kill" ||
             popUptype == "triple_kill" ||
@@ -238,7 +240,7 @@ const Home = () => {
         }
     };
     return (
-        <div className="h-screen bg-green-500">
+        <div className="h-screen" style={{ background: "rgb(0, 177, 64)" }}>
             <div className="h-full">
                 {displayComponents(type)}
                 {showPopup(popUpType)}
