@@ -3,55 +3,26 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const DraftingOverlay = (props) => {
-  const [countdown, setCountdown] = useState(48);
-  const [isActive, setIsActive] = useState(false);
   const [right, setRight] = useState(false);
   const [left, setLeft] = useState(false);
-  const startTimer = () => {
-    setIsActive(true);
-  };
 
-  const resetTimer = () => {
-    setIsActive(false);
-    setCountdown(48);
-  };
-
-  const checkSides = () => {
-    props.data?.camp_list[0].player_list.map((player) => {
-      if (player.banning == true || player.picking == true) {
-        setLeft(true);
-        setRight(false);
-      } else {
-        setLeft(false);
-        setRight(false);
-      }
-    });
-    props.data?.camp_list[1].player_list.map((player) => {
-      if (player.banning == true || player.picking == true) {
+  useEffect(() => {
+    const hasChanges = props.data?.camp_list[0].player_list.some(
+      (player) => player.banning !== false || player.picking !== false
+    );
+    if (hasChanges) {
+      setLeft(true);
+      setRight(false);
+    } else {
+      const has2Changes = props.data?.camp_list[1].player_list.some(
+        (player) => player.banning !== false || player.picking !== false
+      );
+      if (has2Changes) {
         setRight(true);
         setLeft(false);
-      } else {
-        setLeft(false);
-        setRight(false);
       }
-    });
-  };
-  useEffect(() => {
-    startTimer();
-    checkSides();
-    if (countdown === 0) {
-      resetTimer();
     }
-  }, [countdown]);
-  useEffect(() => {
-    let interval;
-    if (isActive && countdown > 0) {
-      interval = setInterval(() => {
-        setCountdown(countdown - 1);
-      }, 1000);
-    }
-    return () => clearInterval(interval);
-  }, [isActive, countdown]);
+  }, [props.data]);
 
   return (
     <div className="h-screen  bg-green-500">
@@ -88,10 +59,11 @@ const DraftingOverlay = (props) => {
               <polygon points="661.59,688.06 584.48,765.17 319.96,500.64 585.15,235.45 662.26,312.57 474.18,500.65 " />
             </svg>
             <div className="text-center">
-              <p className="text-4xl uppercase font-extrabold">Ban phase</p>
-              <p>{countdown}</p>
+              <p className="text-4xl uppercase font-extrabold">
+                {props.data?.state == "ban" ? "Ban phase" : "Pick phase"}
+              </p>
+              <p>{props.data?.state_left_time}</p>
             </div>
-
             <svg
               className={`${
                 right ? "opacity-100" : "opacity-0"
@@ -122,12 +94,12 @@ const DraftingOverlay = (props) => {
                       return (
                         <div
                           key={player.name}
-                          className="  relative "
+                          className="relative "
                           style={{ width: `132px`, height: `190px` }}
                         >
                           <Image
                             src={`/heroesPng/${
-                              player.heroid ? player.heroid : "teamLogo1"
+                              player.heroid != 0 ? player.heroid : "teamLogo1"
                             }.png`}
                             alt=""
                             className="object-cover z-10"
@@ -135,7 +107,7 @@ const DraftingOverlay = (props) => {
                           />
                           <div
                             className={` ${
-                              player.picking == true
+                              player.picking == true || player.banning == true
                                 ? "bg-gradient-to-t from-red-800"
                                 : ""
                             } h-full animate-pulse`}
@@ -151,13 +123,13 @@ const DraftingOverlay = (props) => {
                     {props.data?.camp_list[0].player_list.map((player) => {
                       return (
                         <div
-                          key={player.ban_heroid}
+                          key={player.name}
                           className="h-full grayscale relative"
                           style={{ width: `132px` }}
                         >
                           <Image
                             src={`/heroes/${
-                              player?.ban_heroid
+                              player?.ban_heroid != 0
                                 ? player.ban_heroid
                                 : "teamLogo1"
                             }.png`}
@@ -176,11 +148,16 @@ const DraftingOverlay = (props) => {
                     style={{ height: `143px`, width: `115px` }}
                   >
                     <Image
-                      src={"/assets/teamLogo2.png"}
+                      src={"/heroes/teamLogo1.png"}
                       alt=""
                       fill
                       className="object-contain"
                     />
+                    <p className="text-black text-sm truncate text-center">
+                      {props.data?.camp_list[0].team_name
+                        ? props.data?.camp_list[0].team_name
+                        : "Team 1"}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -195,16 +172,23 @@ const DraftingOverlay = (props) => {
             >
               <div className="h-full flex gap-9 ">
                 <div className="w-full flex justify-end pt-2">
-                  <div
-                    className=" relative  "
-                    style={{ height: `143px`, width: `115px` }}
-                  >
-                    <Image
-                      src={"/assets/teamLogo1.png"}
-                      alt=""
-                      fill
-                      className="object-contain"
-                    />
+                  <div>
+                    <div
+                      className=" relative  "
+                      style={{ height: `143px`, width: `115px` }}
+                    >
+                      <Image
+                        src={"/heroes/teamLogo2.png"}
+                        alt=""
+                        fill
+                        className="object-contain"
+                      />
+                      <p className="text-black text-sm truncate text-center">
+                        {props.data?.camp_list[1].team_name
+                          ? props.data?.camp_list[1].team_name
+                          : "Team 2"}
+                      </p>
+                    </div>
                   </div>
                 </div>
                 <div className="space-y-5 h-full w-full">
@@ -221,7 +205,7 @@ const DraftingOverlay = (props) => {
                         >
                           <Image
                             src={`/heroesPng/${
-                              player.heroid ? player.heroid : "teamLogo2"
+                              player.heroid != 0 ? player.heroid : "teamLogo2"
                             }.png`}
                             alt=""
                             className="object-cover z-10"
@@ -229,7 +213,7 @@ const DraftingOverlay = (props) => {
                           />
                           <div
                             className={` ${
-                              player.picking == true
+                              player.picking == true || player.banning == true
                                 ? "bg-gradient-to-t from-red-800"
                                 : ""
                             } h-full animate-pulse`}
@@ -245,13 +229,13 @@ const DraftingOverlay = (props) => {
                     {props.data?.camp_list[1].player_list.map((player) => {
                       return (
                         <div
-                          key={player.ban_heroid}
+                          key={player.name}
                           className="h-full grayscale relative"
                           style={{ width: `132px` }}
                         >
                           <Image
                             src={`/heroes/${
-                              player?.ban_heroid
+                              player?.ban_heroid != 0
                                 ? player.ban_heroid
                                 : "teamLogo2"
                             }.png`}
