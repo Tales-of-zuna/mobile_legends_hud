@@ -46,7 +46,7 @@ const InGameOverlay = (props) => {
                     </div>
                 );
             }
-        } else if (String(props.teamScore?.bestOf) == "BO5") {
+        } else if (String(props.teamScore?.bestOf) == "BO7") {
             if (String(props.teamScore?.team1) == "0") {
                 return (
                     <div className="flex gap-1">
