@@ -140,11 +140,11 @@ const Home = () => {
             //     });
             // }
         } catch (error) {
-            console.log(error.name);
+            console.log(error);
         } finally {
             // console.log("state: " + data.data.state);
             // console.log("dataid: " + data.dataid);
-            if (data.data.state != "end") {
+            if (data.data?.state != "end") {
                 let payloadInitial = {
                     dataid: data.dataid,
                     battleId: payload.battleId,
@@ -169,7 +169,7 @@ const Home = () => {
                 setPlayState(false);
                 console.log("data fom admin" + event.data.data.battleId);
                 setTeamScore(event.data.data);
-                let payload = { battleId: "582280683792717159", dataid: 0 };
+                let payload = { battleId: "605454622220002044", dataid: 0 };
                 getBattleDataRecursive(payload);
                 // setType(event.data.type);
             }
@@ -186,7 +186,7 @@ const Home = () => {
                 setPopUpType(null);
             }
         };
-    }, []);
+    }, [bc]);
 
     const displayComponents = (name) => {
         if (name === "draftingOverlay") {
@@ -224,17 +224,17 @@ const Home = () => {
         //     return <RealTimeVictoryDefeatRate data={data.data} />;
         // } else if (popUptype == "team gold difference") {
         //     return <TeamGoldDifference data={data.data} />;
-        // } else if (
-        //     popUptype == "first_blood" ||
-        //     popUptype == "double_kill" ||
-        //     popUptype == "triple_kill" ||
-        //     popUptype == "quadra_kill" ||
-        //     popUptype == "penta_kill"
-        // ) {
-        //     return <KillEventComp data={popUptype} />;
-        // }
+
         if (popUpType == "promo code") {
             return <PromoCodeComponent />;
+        } else if (
+            popUptype == "first_blood" ||
+            popUptype == "double_kill" ||
+            popUptype == "triple_kill" ||
+            popUptype == "quadra_kill" ||
+            popUptype == "penta_kill"
+        ) {
+            return <KillEventComp data={popUptype} />;
         }
     };
     return (

@@ -15,7 +15,7 @@ const InGameOverlay = (props) => {
             } else if (String(props.teamScore?.team1) == "1") {
                 return (
                     <div className="flex gap-1">
-                        <div className="w-2 h-5 rounded-sm absolute z-30 bg-red-600"></div>
+                        <div className="w-2 h-5 rounded-sm bg-red-600"></div>
                         <div className="w-2 h-5 rounded-sm bg-black"></div>
                     </div>
                 );
