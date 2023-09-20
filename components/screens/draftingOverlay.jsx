@@ -18,7 +18,7 @@ const DraftingOverlay = (props) => {
 
   const checkSides = () => {
     props.data?.camp_list[0].player_list.map((player) => {
-      if (player.banning || player.picking) {
+      if (player.banning == true || player.picking == true) {
         setLeft(true);
         setRight(false);
       } else {
@@ -27,7 +27,7 @@ const DraftingOverlay = (props) => {
       }
     });
     props.data?.camp_list[1].player_list.map((player) => {
-      if (player.banning || player.picking) {
+      if (player.banning == true || player.picking == true) {
         setRight(true);
         setLeft(false);
       } else {
@@ -126,11 +126,11 @@ const DraftingOverlay = (props) => {
                           style={{ width: `132px`, height: `190px` }}
                         >
                           <Image
-                            src={`/heroes/${
+                            src={`/heroesPng/${
                               player.heroid ? player.heroid : "teamLogo1"
                             }.png`}
                             alt=""
-                            className="object-contain z-10"
+                            className="object-cover z-10"
                             fill
                           />
                           <div
@@ -165,9 +165,6 @@ const DraftingOverlay = (props) => {
                             className="object-fill"
                             fill
                           />
-                          {/* <p className="absolute text-xl text-black">
-                            {player.ban_heroid}
-                          </p> */}
                         </div>
                       );
                     })}
@@ -219,15 +216,15 @@ const DraftingOverlay = (props) => {
                       return (
                         <div
                           key={player.name}
-                          className="  relative "
+                          className="relative"
                           style={{ width: `132px`, height: `190px` }}
                         >
                           <Image
-                            src={`/heroes/${
+                            src={`/heroesPng/${
                               player.heroid ? player.heroid : "teamLogo2"
                             }.png`}
                             alt=""
-                            className="object-contain z-10"
+                            className="object-cover z-10"
                             fill
                           />
                           <div
