@@ -3,20 +3,23 @@ import { Switch } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import { Tabs, Tab } from "@nextui-org/react";
 import { Select, SelectItem } from "@nextui-org/react";
+import moment from "moment/moment";
 
 const Admin = () => {
     const [selected, setSelected] = useState();
     const [selectedPop, setSelectedPop] = useState();
     const [battleData, setBattleData] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [refereeId, setRefereeId] = useState(595669932);
+    const [refereeId, setRefereeId] = useState(89852988);
     const [promoCode, setPromoCode] = useState("");
     const [battleList, setBattleList] = useState([]);
     const [battleId, setBattleId] = useState();
     const [activeTab, setActiveTab] = useState("1");
-    const [bestOf, setBestOf] = useState("");
+    const [bestOf, setBestOf] = useState("BO3");
     const [team1Score, setTeam1Score] = useState(0);
     const [team2Score, setTeam2Score] = useState(0);
+    const [team1Name, setTeam1Name] = useState("");
+    const [team2Name, setTeam2Name] = useState("");
 
     const bc = new BroadcastChannel("admin");
 
@@ -95,7 +98,10 @@ const Admin = () => {
             const arr = data.result.slice(0, 5);
             setBattleList(arr);
             setLoading(false);
-        } else window.alert(data.message);
+        } else {
+            window.alert(data.message);
+            setLoading(false);
+        }
     };
 
     const getBattleData = async (battleId) => {
@@ -193,7 +199,8 @@ const Admin = () => {
                             // setSelected(null);
                             setSelectedPop(null);
                         } else {
-                            if (name == "promo_code") {
+                            if (name === "promo code") {
+                                console.log(name);
                                 bc.postMessage({
                                     type: "state-update-popup",
                                     data: name,
@@ -247,7 +254,7 @@ const Admin = () => {
                         <div className="p-8 font-bold flex flex-row uppercase gap-4  w-full rounded-xl bg-slate-100 shadow-lg  transition-all transform duration-300">
                             <div className=" text-xl text-center mt-4">Enter Referee Id :</div>
                             <input
-                                placeholder="Referee id"
+                                placeholder={refereeId}
                                 onChange={(e) => {
                                     setRefereeId(e.target.value);
                                     console.log("id :", refereeId);
@@ -273,7 +280,11 @@ const Admin = () => {
                                                     setBattleId(BigInt(item.battleid));
                                                 }}
                                                 className="bg-blue-500 hover:bg-blue-700  text-slate-600 font-bold py-2 px-4 rounded">
-                                                <p className=" text-white">{item.reporttime}</p>
+                                                <p className=" text-white">
+                                                    {moment(item.reporttime)
+                                                        .add(16, "hours")
+                                                        .format("YYYY-MM-DD HH:mm:ss")}
+                                                </p>
                                                 <p>{item.battleid}</p>
                                             </button>
                                         </div>
