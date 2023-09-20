@@ -169,7 +169,7 @@ const Home = () => {
         setPlayState(false);
         console.log("data fom admin" + event.data.data.battleId);
         setTeamScore(event.data.data);
-        let payload = { battleId: "665458485030989087", dataid: 0 };
+        let payload = { battleId: "665636395461292285", dataid: 0 };
         getBattleDataRecursive(payload);
         // setType(event.data.type);
       }
