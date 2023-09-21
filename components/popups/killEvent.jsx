@@ -17,7 +17,7 @@ const KillEvent = (props) => {
                 <div
                     className={`${
                         mounted ? "translate-y-0 opacity-100" : "translate-y-0 opacity-0"
-                    } relative h-full ease-in-out transition-all transform duration-3000 w-52`}>
+                    } relative h-full ease-in-out transition-all transform duration-3000 w-96`}>
                     <video
                         autoPlay
                         className="w-full h-full"
@@ -27,7 +27,7 @@ const KillEvent = (props) => {
                 </div>
                 <style jsx>{`
                     .duration-3000 {
-                        transition-duration: 100ms;
+                        transition-duration: 500ms;
                     }
                 `}</style>
             </div>

@@ -62,6 +62,45 @@ const Home = () => {
         return response;
     }
 
+    useEffect(() => {}, []);
+
+    //on Message
+    bc.onmessage = (event) => {
+        if (event.data.type == "draftingOverlay") {
+            setData([]);
+            setType("");
+            setPopUpType("");
+            setCommandType("");
+            setTurtleState(false);
+            setLordState(false);
+            setBattleId(null);
+            setTeamScore(null);
+            setBanpickState(false);
+            setPlayState(false);
+            console.log("data fom admin" + event.data.data.battleId);
+            setTeamScore(event.data.data);
+            let payload = {
+                battleId:
+                    // "628236374298582387",
+                    event.data.data.battleId,
+                dataid: 0,
+            };
+            getBattleDataRecursive(payload);
+            // setType(event.data.type);
+        }
+        if (event.data.type == "state-update-screen") {
+            console.log("event from broadcast :", event);
+            setType(event.data.data);
+        } else if (event.data.type == "state-false-screen") {
+            setType(null);
+        }
+
+        if (event.data.type == "state-update-popup") {
+            setPopUpType(event.data.data);
+        } else if (event.data.type == "state-false-popup") {
+            setPopUpType(null);
+        }
+    };
     async function getBattleDataRecursive(payload) {
         let data;
         console.log("id" + payload?.battleId);
@@ -73,7 +112,10 @@ const Home = () => {
                     payload?.dataid,
                 { timeout: 2000 }
             );
+
             data = await response.json();
+
+            // setData(data);
             console.log(data.data.state);
 
             if (data.data.state === "pick" || data.data.state === "ban") {
@@ -95,14 +137,15 @@ const Home = () => {
             if (data.data.state === "pause") {
             }
 
-            if (data.data.state == "end") {
-                setType("");
-                setPopUpType("");
-            }
-            if (data.data.state == "adjust" || data.data.state == "loading") {
-                setType("");
-                setPopUpType("");
-            }
+            // if (data.data.state == "end") {
+            //     setType("");
+            //     setPopUpType("");
+            // }
+
+            // if (data.data.state == "adjust" || data.data.state == "loading") {
+            //     setType("");
+            //     setPopUpType("");
+            // }
 
             // if (data.data.state == "end") {
             //     // setData(data);
@@ -110,21 +153,21 @@ const Home = () => {
             //     setPopUpType(null);
             // }
 
-            if (data.data.tortoise_left_time == 1 || data.data.tortoise_left_time == 2) {
-                if (!turtleState) {
-                    console.log("turtle");
-                    setPopUpType("turtle cam");
-                    turtleTimer();
-                }
-            }
+            // if (data.data.tortoise_left_time == 1 || data.data.tortoise_left_time == 2) {
+            //     if (!turtleState) {
+            //         console.log("turtle");
+            //         setPopUpType("turtle cam");
+            //         turtleTimer();
+            //     }
+            // }
 
-            if (data.data.lord_left_time == 1 || data.data.lord_left_time == 2) {
-                if (!lordState) {
-                    console.log("lord turluuu");
-                    setPopUpType("lord cam");
-                    lordTimer();
-                }
-            }
+            // if (data.data.lord_left_time == 1 || data.data.lord_left_time == 2) {
+            //     if (!lordState) {
+            //         console.log("lord turluuu");
+            //         setPopUpType("lord cam");
+            //         lordTimer();
+            //     }
+            // }
 
             if (data.data.incre_event_list != null) {
                 data.data.incre_event_list.map((item) => {
@@ -142,9 +185,10 @@ const Home = () => {
         } catch (error) {
             console.log(error);
         } finally {
-            // console.log("state: " + data.data.state);
+            console.log("state in finally: " + data.data.state);
             // console.log("dataid: " + data.dataid);
-            if (data.data?.state != "end") {
+
+            if (data.data.state != "end") {
                 let payloadInitial = {
                     dataid: data.dataid,
                     battleId: payload.battleId,
@@ -153,40 +197,6 @@ const Home = () => {
             }
         }
     }
-
-    useEffect(() => {
-        bc.onmessage = (event) => {
-            if (event.data.type == "draftingOverlay") {
-                setData([]);
-                setType("");
-                setPopUpType("");
-                setCommandType("");
-                setTurtleState(false);
-                setLordState(false);
-                setBattleId(null);
-                setTeamScore(null);
-                setBanpickState(false);
-                setPlayState(false);
-                console.log("data fom admin" + event.data.data.battleId);
-                setTeamScore(event.data.data);
-                let payload = { battleId: event.data.data.battleId, dataid: 0 };
-                getBattleDataRecursive(payload);
-                // setType(event.data.type);
-            }
-            if (event.data.type == "state-update-screen") {
-                console.log("event from broadcast :", event);
-                setType(event.data.data);
-            } else if (event.data.type == "state-false-screen") {
-                setType(null);
-            }
-
-            if (event.data.type == "state-update-popup") {
-                setPopUpType(event.data.data);
-            } else if (event.data.type == "state-false-popup") {
-                setPopUpType(null);
-            }
-        };
-    }, [bc]);
 
     const displayComponents = (name) => {
         if (name === "draftingOverlay") {
@@ -210,26 +220,25 @@ const Home = () => {
     };
 
     const showPopup = (popUptype) => {
-        if (popUpType == "promo code") {
-            return <PromoCodeComponent promoCode={""} />;
-        }
         // if (popUptype == "individual player stats") {
         //     return <IndiPlayerStats data={data.data} />;
         // } else if (popUptype == "in game stats head to head") {
         //     return <HeadToHeadComponent data={data.data} />;
         // } else if (popUptype == "in game stat") {
         //     return <InGameStat data={data.data} />;
-        // }
-        else if (popUptype == "turtle cam") {
-            return <TurtleCam data={data.data} />;
-        } else if (popUptype == "lord cam") {
-            return <LordCam data={data.data} />;
-        }
-        // else if (popUptype == "real time victory defeat rate") {
+        // } else if (popUptype == "turtle cam") {
+        //     return <TurtleCam data={data.data} />;
+        // } else if (popUptype == "lord cam") {
+        //     return <LordCam data={data.data} />;
+        // } else if (popUptype == "real time victory defeat rate") {
         //     return <RealTimeVictoryDefeatRate data={data.data} />;
         // } else if (popUptype == "team gold difference") {
         //     return <TeamGoldDifference data={data.data} />;
-        else if (
+
+        if (popUpType == "promo code") {
+            return <KillEventComp data={"first_blood"} />;
+            //  <PromoCodeComponent />;
+        } else if (
             popUptype == "first_blood" ||
             popUptype == "double_kill" ||
             popUptype == "triple_kill" ||
@@ -240,7 +249,7 @@ const Home = () => {
         }
     };
     return (
-        <div className="h-screen" style={{ background: "rgb(0, 177, 64)" }}>
+        <div className="h-screen bg-green-500">
             <div className="h-full">
                 {displayComponents(type)}
                 {showPopup(popUpType)}
