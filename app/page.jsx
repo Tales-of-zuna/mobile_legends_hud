@@ -28,6 +28,7 @@ const Home = () => {
     const [teamScore, setTeamScore] = useState();
     const [banpickState, setBanpickState] = useState(false);
     const [playState, setPlayState] = useState(false);
+    const [promoCode, setPromoCode] = useState("");
     const bc = new BroadcastChannel("admin");
 
     const turtleTimer = () => {
@@ -81,7 +82,7 @@ const Home = () => {
             setTeamScore(event.data.data);
             let payload = {
                 battleId:
-                    // "628236374298582387",
+                    // "630440474205485258",
                     event.data.data.battleId,
                 dataid: 0,
             };
@@ -97,6 +98,7 @@ const Home = () => {
 
         if (event.data.type == "state-update-popup") {
             setPopUpType(event.data.data);
+            setPromoCode(event.data.code);
         } else if (event.data.type == "state-false-popup") {
             setPopUpType(null);
         }
@@ -142,10 +144,10 @@ const Home = () => {
             //     setPopUpType("");
             // }
 
-            // if (data.data.state == "adjust" || data.data.state == "loading") {
-            //     setType("");
-            //     setPopUpType("");
-            // }
+            if (data.data.state == "adjust" || data.data.state == "loading") {
+                setType("");
+                setPopUpType("");
+            }
 
             // if (data.data.state == "end") {
             //     // setData(data);
@@ -208,15 +210,15 @@ const Home = () => {
         // else if (name === "RealTimeVictoryDefeatRate") {
         //   return <RealTimeVictoryDefeatRate data={data.data} />;
         // }
-        else if (name === "ItemBuild") {
-            return <ItemBuild data={data.data} />;
-        } else if (name === "PlayerStatsFull") {
-            return <PlayerStatsFull data={data.data} />;
-        } else if (name === "PlayerStatsLower") {
-            return <PlayerStatsLower data={data.data} />;
-        } else if (name === "FirstBlood") {
-            return <InGameStat data={data} />;
-        }
+        // else if (name === "ItemBuild") {
+        //     return <ItemBuild data={data.data} />;
+        // } else if (name === "PlayerStatsFull") {
+        //     return <PlayerStatsFull data={data.data} />;
+        // } else if (name === "PlayerStatsLower") {
+        //     return <PlayerStatsLower data={data.data} />;
+        // } else if (name === "FirstBlood") {
+        //     return <InGameStat data={data} />;
+        // }
     };
 
     const showPopup = (popUptype) => {
@@ -236,8 +238,8 @@ const Home = () => {
         //     return <TeamGoldDifference data={data.data} />;
 
         if (popUpType == "promo code") {
-            return <KillEventComp data={"first_blood"} />;
-            //  <PromoCodeComponent />;
+            return <PromoCodeComponent promoCode={promoCode}/>;
+            // <KillEventComp data={"first_blood"} />;
         } else if (
             popUptype == "first_blood" ||
             popUptype == "double_kill" ||
