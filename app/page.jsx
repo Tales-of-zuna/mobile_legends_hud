@@ -81,7 +81,7 @@ const Home = () => {
             setTeamScore(event.data.data);
             let payload = {
                 battleId:
-                    // "628236374298582387",
+                    // "583852259571225905",
                     event.data.data.battleId,
                 dataid: 0,
             };
