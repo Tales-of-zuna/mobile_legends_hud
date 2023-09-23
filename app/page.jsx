@@ -29,6 +29,7 @@ const Home = () => {
     const [banpickState, setBanpickState] = useState(false);
     const [playState, setPlayState] = useState(false);
     const [promoCode, setPromoCode] = useState("");
+    const [popUpState, setPopUpState] = useState(false);
     const bc = new BroadcastChannel("admin");
 
     const turtleTimer = () => {
@@ -45,6 +46,15 @@ const Home = () => {
         setTimeout(() => {
             setLordState(false);
         }, 5000);
+    };
+
+    const popUpTimer = () => {
+        setPopUpState(true);
+
+        setTimeout(() => {
+            setPopUpState(false);
+            setPopUpType("");
+        }, 3000);
     };
 
     async function fetchWithTimeout(resource, options = {}) {
@@ -82,7 +92,7 @@ const Home = () => {
             setTeamScore(event.data.data);
             let payload = {
                 battleId:
-                    // "630440474205485258",
+                    // "608204114254271443",
                     event.data.data.battleId,
                 dataid: 0,
             };
@@ -144,10 +154,10 @@ const Home = () => {
             //     setPopUpType("");
             // }
 
-            if (data.data.state == "adjust" || data.data.state == "loading") {
-                setType("");
-                setPopUpType("");
-            }
+            // if (data.data.state == "adjust" || data.data.state == "loading") {
+            //     setType("");
+            //     setPopUpType("");
+            // }
 
             // if (data.data.state == "end") {
             //     // setData(data);
@@ -180,7 +190,10 @@ const Home = () => {
                         // item.extra_param[0] == "first_blood"
                     ) {
                         console.log("EXTRA PARAM :", item.extra_param[0]);
-                        setPopUpType(item.extra_param[0]);
+                        if (!popUpState) {
+                            setPopUpType(item.extra_param[0]);
+                            popUpTimer();
+                        }
                     }
                 });
             }
@@ -236,11 +249,7 @@ const Home = () => {
         //     return <RealTimeVictoryDefeatRate data={data.data} />;
         // } else if (popUptype == "team gold difference") {
         //     return <TeamGoldDifference data={data.data} />;
-
-        if (popUpType == "promo code") {
-            return <PromoCodeComponent promoCode={promoCode} />;
-            // <KillEventComp data={"first_blood"} />;
-        } else if (
+        if (
             popUptype == "first_blood" ||
             popUptype == "double_kill" ||
             popUptype == "triple_kill" ||
@@ -248,6 +257,9 @@ const Home = () => {
             popUptype == "penta_kill"
         ) {
             return <KillEventComp data={popUptype} />;
+        } else if (popUpType == "promo code") {
+            return <PromoCodeComponent promoCode={promoCode} />;
+            // <KillEventComp data={"first_blood"} />;
         }
     };
     return (
