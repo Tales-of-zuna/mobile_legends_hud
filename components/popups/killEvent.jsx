@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 const KillEvent = (props) => {
     const [mounted, setMounted] = useState(false);
     useEffect(() => {
-        console.log("props kill event :", props.data);
         setMounted(true);
         setTimeout(() => {
             setMounted(false);
