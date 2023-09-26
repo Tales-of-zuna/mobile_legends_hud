@@ -32,6 +32,10 @@ const DraftingOverlay = (props) => {
           .montser {
             font-family: "Unbounded", sans-serif;
           }
+          @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
+          .montserat {
+            font-family: "Montserrat", sans-serif;
+          }
           @keyframes bounce {
             0%,
             100% {
@@ -153,9 +157,9 @@ const DraftingOverlay = (props) => {
                       fill
                       className="object-contain"
                     />
-                    <p className="text-black text-sm truncate text-center">
-                      {props.data?.camp_list[0].team_name
-                        ? props.data?.camp_list[0].team_name
+                    <p className="text-white absolute bottom-4 text-xl montserat truncate text-center">
+                      {props.data?.camp_list[0].team_simple_name
+                        ? props.data?.camp_list[0].team_simple_name
                         : "Team 1"}
                     </p>
                   </div>
@@ -183,9 +187,9 @@ const DraftingOverlay = (props) => {
                         fill
                         className="object-contain"
                       />
-                      <p className="text-black text-sm truncate text-center">
-                        {props.data?.camp_list[1].team_name
-                          ? props.data?.camp_list[1].team_name
+                      <p className="text-white absolute montserat bottom-4 text-xl truncate text-center">
+                        {props.data?.camp_list[1].team_simple_name
+                          ? props.data?.camp_list[1].team_simple_name
                           : "Team 2"}
                       </p>
                     </div>
