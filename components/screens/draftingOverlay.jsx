@@ -146,7 +146,7 @@ const DraftingOverlay = (props) => {
                               player?.ban_heroid != 0
                                 ? "/heroes/" + player.ban_heroid + ".png"
                                 : "/teams/" + player.team_id + "/ban.png"
-                            }`}
+                            }.png`}
                             alt=""
                             className="object-fill"
                             fill
@@ -270,7 +270,7 @@ const DraftingOverlay = (props) => {
                               player?.ban_heroid != 0
                                 ? "/heroes/" + player.ban_heroid + ".png"
                                 : "/teams/" + player.team_id + "/ban.png"
-                            }`}
+                            }.png`}
                             alt=""
                             className="object-fill"
                             fill
