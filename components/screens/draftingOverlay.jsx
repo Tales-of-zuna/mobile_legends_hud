@@ -32,7 +32,7 @@ const DraftingOverlay = (props) => {
           .montser {
             font-family: "Unbounded", sans-serif;
           }
-          @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap");
+          @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@900&display=swap");
           .montserat {
             font-family: "Montserrat", sans-serif;
           }
@@ -98,13 +98,23 @@ const DraftingOverlay = (props) => {
                       return (
                         <div
                           key={player.name}
-                          className="relative "
+                          className="relative flex"
                           style={{ width: `132px`, height: `190px` }}
                         >
-                          <Image
+                          {/* <Image
                             src={`/heroesPng/${
                               player.heroid != 0 ? player.heroid : "teamLogo1"
                             }.png`}
+                            alt=""
+                            className="object-cover z-10"
+                            fill
+                          /> */}
+                          <Image
+                            src={`${
+                              player.heroid != 0
+                                ? "/heroesPng/" + player.heroid + ".png"
+                                : "/teams/" + player.team_id + "/pick.png"
+                            }`}
                             alt=""
                             className="object-cover z-10"
                             fill
@@ -132,10 +142,10 @@ const DraftingOverlay = (props) => {
                           style={{ width: `132px` }}
                         >
                           <Image
-                            src={`/heroes/${
+                            src={`${
                               player?.ban_heroid != 0
-                                ? player.ban_heroid
-                                : "teamLogo1"
+                                ? "/heroes/" + player.ban_heroid + ".png"
+                                : "/teams/" + player.team_id + "/ban.png"
                             }.png`}
                             alt=""
                             className="object-fill"
@@ -152,12 +162,16 @@ const DraftingOverlay = (props) => {
                     style={{ height: `143px`, width: `115px` }}
                   >
                     <Image
-                      src={"/heroes/teamLogo1.png"}
+                      src={
+                        "/teams/" +
+                        props.data?.camp_list[0].team_id +
+                        "/logowhite.png"
+                      }
                       alt=""
                       fill
                       className="object-contain"
                     />
-                    <p className="text-white absolute bottom-4 text-xl montserat truncate text-center">
+                    <p className="text-white absolute montserat w-full bottom-1 font-black text-xl truncate text-center">
                       {props.data?.camp_list[0].team_simple_name
                         ? props.data?.camp_list[0].team_simple_name
                         : "Team 1"}
@@ -182,12 +196,16 @@ const DraftingOverlay = (props) => {
                       style={{ height: `143px`, width: `115px` }}
                     >
                       <Image
-                        src={"/heroes/teamLogo2.png"}
+                        src={
+                          "/teams/" +
+                          props.data?.camp_list[1].team_id +
+                          "/logowhite.png"
+                        }
                         alt=""
                         fill
                         className="object-contain"
                       />
-                      <p className="text-white absolute montserat bottom-4 text-xl truncate text-center">
+                      <p className="text-white absolute montserat w-full bottom-1 font-black text-xl truncate text-center">
                         {props.data?.camp_list[1].team_simple_name
                           ? props.data?.camp_list[1].team_simple_name
                           : "Team 2"}
@@ -207,10 +225,20 @@ const DraftingOverlay = (props) => {
                           className="relative"
                           style={{ width: `132px`, height: `190px` }}
                         >
-                          <Image
+                          {/* <Image
                             src={`/heroesPng/${
                               player.heroid != 0 ? player.heroid : "teamLogo2"
                             }.png`}
+                            alt=""
+                            className="object-cover z-10"
+                            fill
+                          /> */}
+                          <Image
+                            src={`${
+                              player.heroid != 0
+                                ? "/heroesPng/" + player.heroid + ".png"
+                                : "/teams/" + player.team_id + "/pick.png"
+                            }`}
                             alt=""
                             className="object-cover z-10"
                             fill
@@ -238,10 +266,10 @@ const DraftingOverlay = (props) => {
                           style={{ width: `132px` }}
                         >
                           <Image
-                            src={`/heroes/${
+                            src={`${
                               player?.ban_heroid != 0
-                                ? player.ban_heroid
-                                : "teamLogo2"
+                                ? "/heroes/" + player.ban_heroid + ".png"
+                                : "/teams/" + player.team_id + "/ban.png"
                             }.png`}
                             alt=""
                             className="object-fill"

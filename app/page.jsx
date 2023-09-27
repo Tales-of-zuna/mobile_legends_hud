@@ -92,13 +92,14 @@ const Home = () => {
       setTeamScore(event.data.data);
       let payload = {
         battleId:
-          // "608204114254271443",
+          // "685350303940376832",
           event.data.data.battleId,
         dataid: 0,
       };
       getBattleDataRecursive(payload);
       // setType(event.data.type);
     }
+
     if (event.data.type == "state-update-screen") {
       console.log("event from broadcast :", event);
       setType(event.data.data);

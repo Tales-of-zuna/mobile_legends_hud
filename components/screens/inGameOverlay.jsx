@@ -192,7 +192,11 @@ const InGameOverlay = (props) => {
                 fill
                 alt=""
                 className="object-contain"
-                src={"/assets/teamLogo1.png"}
+                src={
+                  "/teams/" +
+                  props.data?.camp_list[0].team_id +
+                  "/logoblack.png"
+                }
               />
             </div>
             <div className="h-full relative " style={{ width: `430px` }}>
@@ -292,7 +296,11 @@ const InGameOverlay = (props) => {
                 fill
                 alt=""
                 className="object-contain"
-                src={"/assets/teamLogo2.png"}
+                src={
+                  "/teams/" +
+                  props.data?.camp_list[1].team_id +
+                  "/logoblack.png"
+                }
               />
             </div>
           </div>
