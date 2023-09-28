@@ -124,7 +124,7 @@ const DraftingOverlay = (props) => {
                               player.picking == true || player.banning == true
                                 ? "bg-gradient-to-t from-red-800"
                                 : ""
-                            } h-full animate-pulse`}
+                            } h-full w-full animate-pulse`}
                           ></div>
                           <div className="h-1/2 pb-1 text-slate-100 font-semibold bottom-0 z-20 w-full bg-gradient-to-t from-black absolute flex justify-center items-end">
                             <p className="text-sm text-center">{player.name}</p>
@@ -248,7 +248,7 @@ const DraftingOverlay = (props) => {
                               player.picking == true || player.banning == true
                                 ? "bg-gradient-to-t from-red-800"
                                 : ""
-                            } h-full animate-pulse`}
+                            } h-full w-full animate-pulse`}
                           ></div>
                           <div className="h-1/2 pb-1 text-slate-100 font-semibold bottom-0 z-20 w-full bg-gradient-to-t from-black absolute flex justify-center items-end">
                             <p className="text-sm text-center">{player.name}</p>
