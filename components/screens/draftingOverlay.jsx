@@ -101,17 +101,21 @@ const DraftingOverlay = (props) => {
                           className="relative flex"
                           style={{ width: `132px`, height: `190px` }}
                         >
-                          {/* <Image
-                             src={`${
+                          <Image
+                            src={`${
                               player.heroid != 0
                                 ? "/heroesPng/" + player.heroid + ".png"
-                                : "/teams/" + player.team_id +"/"+ player.roleid +".png"
+                                : "/teams/" +
+                                  player.team_id +
+                                  "/" +
+                                  player.roleid +
+                                  ".png"
                             }`}
                             alt=""
-                            className="object-top z-10"
+                            className="object-cover z-10"
                             fill
-                          /> */}
-                          <Image
+                          />
+                          {/* <Image
                             src={`${
                               player.heroid != 0
                                 ? "/heroesPng/" + player.heroid + ".png"
@@ -120,7 +124,7 @@ const DraftingOverlay = (props) => {
                             alt=""
                             className="object-cover z-10"
                             fill
-                          />
+                          /> */}
                           <div
                             className={` ${
                               player.picking == true || player.banning == true
@@ -227,17 +231,21 @@ const DraftingOverlay = (props) => {
                           className="relative"
                           style={{ width: `132px`, height: `190px` }}
                         >
-                          {/* <Image
+                          <Image
                             src={`${
                               player.heroid != 0
                                 ? "/heroesPng/" + player.heroid + ".png"
-                                : "/teams/" + player.team_id +"/"+ player.roleid +".png"
+                                : "/teams/" +
+                                  player.team_id +
+                                  "/" +
+                                  player.roleid +
+                                  ".png"
                             }`}
                             alt=""
-                            className="object-top z-10"
+                            className="object-cover z-10"
                             fill
-                          /> */}
-                          <Image
+                          />
+                          {/* <Image
                             src={`${
                               player.heroid != 0
                                 ? "/heroesPng/" + player.heroid + ".png"
@@ -246,7 +254,7 @@ const DraftingOverlay = (props) => {
                             alt=""
                             className="object-cover z-10"
                             fill
-                          />
+                          /> */}
                           <div
                             className={` ${
                               player.picking == true || player.banning == true
