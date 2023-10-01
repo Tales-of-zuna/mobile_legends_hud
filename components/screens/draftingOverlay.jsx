@@ -171,13 +171,13 @@ const DraftingOverlay = (props) => {
                       src={
                         "/teams/" +
                         props.data?.camp_list[0].team_id +
-                        "/logowhite.png"
+                        "/logoblack.png"
                       }
                       alt=""
                       fill
                       className="object-contain"
                     />
-                    <p className="text-white absolute montserat w-full bottom-1 font-black text-xl truncate text-center">
+                    <p className="text-black absolute montserat w-full bottom-1 font-black text-xl truncate text-center">
                       {props.data?.camp_list[0].team_simple_name
                         ? props.data?.camp_list[0].team_simple_name
                         : "Team 1"}
@@ -205,13 +205,13 @@ const DraftingOverlay = (props) => {
                         src={
                           "/teams/" +
                           props.data?.camp_list[1].team_id +
-                          "/logowhite.png"
+                          "/logoblack.png"
                         }
                         alt=""
                         fill
                         className="object-contain"
                       />
-                      <p className="text-white absolute montserat w-full bottom-1 font-black text-xl truncate text-center">
+                      <p className="text-black absolute montserat w-full bottom-1 font-black text-xl truncate text-center">
                         {props.data?.camp_list[1].team_simple_name
                           ? props.data?.camp_list[1].team_simple_name
                           : "Team 2"}
