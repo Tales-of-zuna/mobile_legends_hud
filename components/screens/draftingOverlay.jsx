@@ -57,6 +57,7 @@ const DraftingOverlay = (props) => {
               className={`${
                 left ? "opacity-100" : "opacity-0"
               } h-10 mr-4 animate-bounce`}
+              fill="currentColor"
               viewBox="0 0 1000 1000"
             >
               <polygon points="460.58,688.06 383.48,765.17 118.95,500.64 384.14,235.45 461.25,312.57 273.17,500.65 " />
@@ -72,6 +73,7 @@ const DraftingOverlay = (props) => {
               className={`${
                 right ? "opacity-100" : "opacity-0"
               } h-10 ml-4 animate-bounce`}
+              fill="currentColor"
               viewBox="0 0 1000 1000"
             >
               <polygon points="508.04,312.56 585.15,235.45 849.67,499.98 584.48,765.17 507.37,688.05 695.45,499.97 " />
