@@ -52,7 +52,7 @@ const DraftingOverlay = (props) => {
           }
         `}</style>
         <div className="relative">
-          <div className="absolute text-3xl font-bold text-black text bottom-0 flex py-4 justify-center w-full">
+          <div className="absolute text-3xl font-bold text-white text bottom-0 flex py-4 justify-center w-full">
             <svg
               className={`${
                 left ? "opacity-100" : "opacity-0"
@@ -101,7 +101,6 @@ const DraftingOverlay = (props) => {
                           className="relative flex"
                           style={{ width: `132px`, height: `190px` }}
                         >
-                          
                           {/* <Image
                              src={`${
                               player.heroid != 0
@@ -116,10 +115,10 @@ const DraftingOverlay = (props) => {
                             src={`${
                               player.heroid != 0
                                 ? "/heroesPng/" + player.heroid + ".png"
-                                : "/teams/" + 10630 +"/"+ 1495441214 +".png"
+                                : "/teams/" + 10630 + "/" + 1495441214 + ".png"
                             }`}
                             alt=""
-                            className="object-top z-10"
+                            className="object-cover z-10"
                             fill
                           />
                           <div
@@ -228,7 +227,6 @@ const DraftingOverlay = (props) => {
                           className="relative"
                           style={{ width: `132px`, height: `190px` }}
                         >
-                          
                           {/* <Image
                             src={`${
                               player.heroid != 0
@@ -243,10 +241,10 @@ const DraftingOverlay = (props) => {
                             src={`${
                               player.heroid != 0
                                 ? "/heroesPng/" + player.heroid + ".png"
-                                : "/teams/" + 10630 +"/"+ 1495441214 +".png"
+                                : "/teams/" + 10630 + "/" + 1495441219 + ".png"
                             }`}
                             alt=""
-                            className="object-top z-10"
+                            className="object-cover z-10"
                             fill
                           />
                           <div

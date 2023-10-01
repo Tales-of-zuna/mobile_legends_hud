@@ -185,7 +185,7 @@ const InGameOverlay = (props) => {
           muted
           src="/assets/in_game_overlay.mp4"
         />
-        <div className="absolute w-full text-black font-bold text-xl justify-center top-0 z-10 flex ">
+        <div className="absolute w-full text-white font-bold text-xl justify-center top-0 z-10 flex ">
           <div className="flex" style={{ width: `1230px`, height: `110px` }}>
             <div className="h-full relative " style={{ width: `85px` }}>
               <Image
@@ -195,7 +195,7 @@ const InGameOverlay = (props) => {
                 src={
                   "/teams/" +
                   props.data?.camp_list[0].team_id +
-                  "/logoblack.png"
+                  "/logowhite.png"
                 }
               />
             </div>
@@ -299,7 +299,7 @@ const InGameOverlay = (props) => {
                 src={
                   "/teams/" +
                   props.data?.camp_list[1].team_id +
-                  "/logoblack.png"
+                  "/logowhite.png"
                 }
               />
             </div>
