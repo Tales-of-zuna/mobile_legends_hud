@@ -101,22 +101,25 @@ const DraftingOverlay = (props) => {
                           className="relative flex"
                           style={{ width: `132px`, height: `190px` }}
                         >
+                          
                           {/* <Image
-                            src={`/heroesPng/${
-                              player.heroid != 0 ? player.heroid : "teamLogo1"
-                            }.png`}
+                             src={`${
+                              player.heroid != 0
+                                ? "/heroesPng/" + player.heroid + ".png"
+                                : "/teams/" + player.team_id +"/"+ player.roleid +".png"
+                            }`}
                             alt=""
-                            className="object-cover z-10"
+                            className="object-top z-10"
                             fill
                           /> */}
                           <Image
                             src={`${
                               player.heroid != 0
                                 ? "/heroesPng/" + player.heroid + ".png"
-                                : "/teams/" + player.team_id + "/pick.png"
+                                : "/teams/" + 10630 +"/"+ 1495441214 +".png"
                             }`}
                             alt=""
-                            className="object-cover z-10"
+                            className="object-top z-10"
                             fill
                           />
                           <div
@@ -225,22 +228,25 @@ const DraftingOverlay = (props) => {
                           className="relative"
                           style={{ width: `132px`, height: `190px` }}
                         >
+                          
                           {/* <Image
-                            src={`/heroesPng/${
-                              player.heroid != 0 ? player.heroid : "teamLogo2"
-                            }.png`}
+                            src={`${
+                              player.heroid != 0
+                                ? "/heroesPng/" + player.heroid + ".png"
+                                : "/teams/" + player.team_id +"/"+ player.roleid +".png"
+                            }`}
                             alt=""
-                            className="object-cover z-10"
+                            className="object-top z-10"
                             fill
                           /> */}
                           <Image
                             src={`${
                               player.heroid != 0
                                 ? "/heroesPng/" + player.heroid + ".png"
-                                : "/teams/" + player.team_id + "/pick.png"
+                                : "/teams/" + 10630 +"/"+ 1495441214 +".png"
                             }`}
                             alt=""
-                            className="object-cover z-10"
+                            className="object-top z-10"
                             fill
                           />
                           <div

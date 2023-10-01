@@ -30,6 +30,10 @@ const Admin = () => {
         {
             name: "BO5",
         },
+        {
+            name: "BO7",
+        },
+
     ];
 
     const list = [
